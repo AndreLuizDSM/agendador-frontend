@@ -7,7 +7,12 @@ import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'input-password-field',
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
+  imports: [
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    ReactiveFormsModule],
   templateUrl: './password-field.html',
   styleUrl: './password-field.scss',
 })

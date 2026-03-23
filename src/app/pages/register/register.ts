@@ -9,7 +9,14 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 
 @Component({
   selector: 'app-register',
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, PasswordField, ReactiveFormsModule],
+  imports: [
+    MatCardModule, 
+    MatButtonModule, 
+    MatFormFieldModule, 
+    MatInputModule,
+    MatSelectModule, 
+    PasswordField, 
+    ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   encapsulation: ViewEncapsulation.None
@@ -23,6 +30,19 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       password: ['']
     }) 
+}
+
+get fullNameError(): string | null {
+  const fullNameControl = this.form.get('fullName')
+  if(fullNameControl?.hasError('required')) return 'Campo obrigatório*';
+  if(fullNameControl?.hasError('minlength')) return 'Nome deve conter mais de 12 letras';
+  return null
+}
+get emailError(): string | null {
+  const emailControl = this.form.get('email')
+  if(emailControl?.hasError('required')) return 'Campo obrigatório*';
+  if(emailControl?.hasError('email')) return 'Email deve conter @';
+  return null
 }
 
 get passwordControl(): FormControl {

@@ -11,22 +11,18 @@
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Nome Completo</mat-label>
                     <input matInput formControlName="fullName" placeholder="">
-                    @if (form.get('fullName')?.errors?.['required']) {
-                    <mat-error>Campo obrigatório</mat-error>
-                    }
-                    @if (form.get('fullName')?.errors?.['minlength']) {
-                    <mat-error>Cadastre um nome com mais de 12 letras</mat-error>
-                    }     
+                    @if (fullNameError) {
+                    <mat-error>{{fullNameError}}</mat-error>
+                    }   
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" placeholder="user123@example.com">
-                    @if (form.get('email')?.errors?.['required']) {
-                    <mat-error>Campo obrigatório</mat-error>
-                    }
-                    @if (form.get('email')?.errors?.['email']) {
-                    <mat-error>Email deve conter @</mat-error>
+                    
+                    <!-- <mat-error *ngIf="form.get('email')?.errors?.['required']">Campo obrigatório*</mat-error> -->
+                    @if (emailError) {
+                    <mat-error>{{emailError}}</mat-error>
                     }
                 </mat-form-field>
 

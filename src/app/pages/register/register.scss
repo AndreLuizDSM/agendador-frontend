@@ -45,3 +45,16 @@ mat-label  {
     color: rgba(7, 7, 7, 0.555) !important;
     
 }
+.register-component .mat-mdc-text-field-wrapper {
+  margin-bottom: 8px;
+}
+
+.register-component mat-error {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 10px;
+}
+
+.register-component .mat-mdc-card-content {
+    padding: 12px 16px;
+}

@@ -5,22 +5,24 @@
 
         </mat-card-header>
 
-        <mat-card-content>
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Nome Completo</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="user123@example.com">
-            </mat-form-field>
+        <form [formGroup]="form">
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nome Completo</mat-label>
+                    <input matInput formControlName="fullName" placeholder="">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="user123@example.com">
+                </mat-form-field>
 
-            <input-password-field></input-password-field>
+                <input-password-field [control]="passwordControl"></input-password-field>
+            </mat-card-content>
+        </form>
 
-        </mat-card-content>
         <mat-card-actions>
-            <button matButton="tonal" class="full-width">Cadastrar</button>
-
+            <button matButton="tonal" class="full-width" (click)="submit()">Cadastrar</button>
         </mat-card-actions>
+   
     </mat-card>
 </div>

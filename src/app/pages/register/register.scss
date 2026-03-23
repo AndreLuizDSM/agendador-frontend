@@ -1,0 +1,32 @@
+//Por que usar o .register-component? Medida de segurança para usar o ViewEncapsulation.None , e a alteração valer para o meu component específico.
+
+.register-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+.register-component mat-card {  // Sempre usar a classe da div principal ao fazer alterações em componentes que vem da biblioteca
+    width: 400px;
+    padding: 20px;
+}
+
+:host ::ng-deep mat-label  {    // Não precisa de ng-deep para atualizar um componente HTML
+  color: rgba(26, 27, 31, 0.521);
+   
+}
+:host ::ng-deep .register-component .mdc-button__label {    // Precisa de ng-deep para atualizar uma classe do MaterialAngular
+    color: rgba(0, 0, 248, 0.562);
+    
+}
+
+:host ::ng-deep .register-component .mdc-notched-outline__trailing {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+:host ::ng-deep .register-component .mdc-notched-outline__leading {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}

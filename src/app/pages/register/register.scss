@@ -12,21 +12,36 @@
     padding: 20px;
 }
 
-:host ::ng-deep mat-label  {    // Não precisa de ng-deep para atualizar um componente HTML
+mat-label  {    
   color: rgba(26, 27, 31, 0.521);
    
 }
-:host ::ng-deep .register-component .mdc-button__label {    // Precisa de ng-deep para atualizar uma classe do MaterialAngular
+.register-component .mdc-button__label {    
     color: rgba(0, 0, 248, 0.562);
     
 }
 
-:host ::ng-deep .register-component .mdc-notched-outline__trailing {
+// :host ::ng-deep .register-component .mdc-notched-outline__trailing {
+//     border-top-right-radius: 16px;
+//     border-bottom-right-radius: 16px;
+// }
+
+// :host ::ng-deep .register-component .mdc-notched-outline__leading {
+//     border-top-left-radius: 14px;
+//     border-bottom-left-radius: 14px;
+// } NG-DEEP PARA CONTAINERS COM VIEWENCAPSULATION.EMULATED
+
+.register-component .mdc-notched-outline__trailing {
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
-}
+ }
 
-:host ::ng-deep .register-component .mdc-notched-outline__leading {
-    border-top-left-radius: 14px;
-    border-bottom-left-radius: 14px;
+.register-component .mdc-notched-outline__leading {
+     border-top-left-radius: 14px;
+     border-bottom-left-radius: 14px; 
+}
+.register-component input::placeholder{
+    
+    color: rgba(7, 7, 7, 0.555) !important;
+    
 }

@@ -1,0 +1,43 @@
+.app-toolbar-top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.app-toolbar-top-menu .spacer {
+    flex: 1 1 auto;
+}
+.app-toolbar-top-menu button{
+    
+    height: 75%;
+    transition: background-color .3s ease !important;
+    border-radius: 40px;
+}
+
+.app-toolbar-top-menu .login-button:hover {
+    background-color: rgba(134, 134, 134, 0.226);
+    
+}
+
+.app-toolbar-top-menu .cad-button {
+    background-color: rgba(0, 0, 236, 0.664);
+    color: white;
+}
+
+.app-toolbar-top-menu .cad-button:hover {
+    background-color: rgb(0, 0, 255); 
+    
+}
+
+.app-toolbar-top-menu .logo{
+    display: flex;
+    align-items: center;
+    
+}
+
+.app-toolbar-top-menu .logo-img {
+    width: auto;
+    max-width: 100%;
+    min-width: 89px;
+    height: 75px;
+    display: block;
+}

@@ -28,7 +28,7 @@ export class Register {
     this.form = formBuilder.group({
       fullName: ['', [Validators.required, Validators.minLength(12)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['']
+      password: ['', [Validators.required, Validators.minLength(6)]]
     }) 
 }
 
@@ -47,6 +47,11 @@ get emailError(): string | null {
 
 get passwordControl(): FormControl {
   return this.form.get('password') as FormControl;
+}
+
+get getpasswordError(): string | null {
+  const passwordControl = new PasswordField().passwordError;
+  return passwordControl;
 }
 
 submit(){

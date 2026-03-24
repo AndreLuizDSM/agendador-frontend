@@ -49,11 +49,6 @@ get passwordControl(): FormControl {
   return this.form.get('password') as FormControl;
 }
 
-get getpasswordError(): string | null {
-  const passwordControl = new PasswordField().passwordError;
-  return passwordControl;
-}
-
 submit(){
     if(this.form.invalid){
       this.form.markAllAsTouched();

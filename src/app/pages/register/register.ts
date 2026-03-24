@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [
     MatCardModule, 
     MatButtonModule, 

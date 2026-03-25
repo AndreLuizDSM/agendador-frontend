@@ -7,12 +7,12 @@
   </span>
   <span class="spacer"></span>
   
-  <a>Preços</a>
-  <a>Contatos</a>
+  <a matButton>Preços</a>
+  <a matButton="">Contatos</a>
   
   <span class="spacer"></span>
   
   <button matButton class="login-button">Entrar</button>
-  <button matButton [routerLink]="['/register']" routerLinkActive="register" class="cad-button">Cadastrar</button>
+  <button matButton [routerLink]="['/register']" routerLinkActive="register" [disabled]="isOnRegister()" class="cad-button">Cadastrar</button>
 
 </mat-toolbar>

@@ -9,7 +9,7 @@
 .app-toolbar-top-menu button{
     
     height: 75%;
-    transition: background-color .3s ease !important;
+    transition: background-color .3s ease, ease-out 0.1s !important;
     border-radius: 40px;
 }
 
@@ -24,6 +24,7 @@
 }
 .app-toolbar-top-menu .cad-button:disabled {
     background-color: rgba(105, 105, 105, 0.664);
+    transition: none;
 }
 
 .app-toolbar-top-menu .cad-button:hover {

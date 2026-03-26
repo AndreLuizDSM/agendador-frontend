@@ -10,16 +10,16 @@
             <form [formGroup]="form">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Nome Completo</mat-label>
-                    <input matInput formControlName="fullName" placeholder="">
+                    <input matInput formControlName="nome" placeholder="">
                     @if (fullNameError) {
                     <mat-error>{{fullNameError}}</mat-error>
-                    }   
+                    }
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" placeholder="user123@example.com">
-                    
+
                     <!-- <mat-error *ngIf="form.get('email')?.errors?.['required']">Campo obrigatório*</mat-error> -->
                     @if (emailError) {
                     <mat-error>{{emailError}}</mat-error>
@@ -31,7 +31,12 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button matButton="tonal" class="full-width" [disabled]="form.invalid" (click)="submit()">Cadastrar</button>
+            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading" (click)="submit()">
+                <span class="cad-button-content">
+                    {{isLoading ? "Cadastrando..." : "Cadastrar"}}
+                    @if (isLoading) {<mat-spinner diameter="20"></mat-spinner>}
+                </span>
+            </button>
         </mat-card-actions>
 
     </mat-card>

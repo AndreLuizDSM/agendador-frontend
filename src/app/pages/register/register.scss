@@ -20,6 +20,12 @@ mat-label  {
     color: rgba(0, 0, 248, 0.562);
     
 }
+.register-component .cad-button-content {
+    display: inline-flex; align-items: center;
+    mat-spinner {
+        margin-left: 6px;
+    }
+}
 
 // :host ::ng-deep .register-component .mdc-notched-outline__trailing {
 //     border-top-right-radius: 16px;

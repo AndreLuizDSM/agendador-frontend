@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { filter, Subscription } from 'rxjs';
+import { RouterState } from '../../../../core/router/router-state';
 
 @Component({
   selector: 'app-top-menu',
@@ -19,16 +20,13 @@ export class TopMenu implements OnInit, OnDestroy {
 
   rotaAtual: string = '';
   inscricaoAtual!: Subscription;
-
-  constructor(private router: Router) {} // Injeção de dependência para acessar as rotas
+ 
+  private routerService = inject(RouterState);
   
   ngOnInit(): void {
-    this.rotaAtual = this.router.url 
-    this.inscricaoAtual = this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe((evento: NavigationEnd) => {
-      this.rotaAtual = evento.url
-      console.log('Rota atual2: ', this.rotaAtual)})
+    this.inscricaoAtual = this.routerService.atualRota$.subscribe(
+      url => this.rotaAtual = url
+    );
   }
 
   ngOnDestroy(): void {

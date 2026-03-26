@@ -1,6 +1,4 @@
-//Por que usar o .register-component? Medida de segurança para usar o ViewEncapsulation.None , e a alteração valer para o meu component específico.
-
-.register-component {
+.login-component {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,9 +48,7 @@
     }
 
     input::placeholder {
-
-        color: rgba(7, 7, 7, 0.445) !important;
-
+        color: rgba(7, 7, 7, 0) !important;
     }
 
     mat-error {
@@ -65,13 +61,3 @@
         padding: 12px 16px;
     }
 }
-// :host ::ng-deep .register-component .mdc-notched-outline__trailing {
-//     border-top-right-radius: 16px;
-//     border-bottom-right-radius: 16px;
-// }
-
-// :host ::ng-deep .register-component .mdc-notched-outline__leading {
-//     border-top-left-radius: 14px;
-//     border-bottom-left-radius: 14px;
-// } NG-DEEP PARA CONTAINERS COM VIEWENCAPSULATION.EMULATED
-

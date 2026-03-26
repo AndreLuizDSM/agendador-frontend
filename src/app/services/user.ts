@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 // DTO Request
-interface UserRegisterPayload {
+export interface UserRegisterPayload {
   nome: string,
   email: string,
   senha: string,
@@ -41,17 +41,26 @@ interface UserRegisterResponse {
   }] | null
 }
 
+export interface UserLoginPayload {
+  email: string,
+  senha: string,
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class User {
 
-  private apiUrl = 'http://localhost:8083/'
+  private apiUrl = 'http://localhost:8083'
 
   constructor(private http: HttpClient) {
   }
 
   register(body: UserRegisterPayload): Observable<UserRegisterResponse> {
     return this.http.post<UserRegisterResponse>(`${this.apiUrl}usuario`, body)
+  }
+
+  login(body: UserLoginPayload): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/usuario/login`, body, {responseType: 'text' as 'json'})
   }
 }

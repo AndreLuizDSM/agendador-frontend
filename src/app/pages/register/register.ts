@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PasswordField } from "../../shared/components/password-field/password-field";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../../services/user';
+import { User, UserRegisterPayload } from '../../services/user';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -28,7 +28,7 @@ import { finalize } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class Register {
-  form: FormGroup;
+  form: FormGroup<{nome: FormControl<string>,email: FormControl<string>, senha: FormControl<string>}>;
   isLoading = false;
 
   constructor
@@ -39,9 +39,9 @@ export class Register {
     ) {
 
     this.form = formBuilder.group({
-      nome: ['', [Validators.required, Validators.minLength(12)]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]]
+      nome: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(12)], nonNullable: true}),
+      email: this.formBuilder.control('', {validators: [Validators.required, Validators.email], nonNullable: true}),
+      senha: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(6)], nonNullable: true})
     })
   }
 
@@ -68,14 +68,14 @@ export class Register {
       return
     }
 
-    const formData = this.form.value;
+    const formData = this.form.value as UserRegisterPayload;
 
     this.isLoading = true;
     
     this.userService.register(formData)
     .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
     .subscribe({
-        next: (response) => { console.log('Sucesso', response) },
+        next: (response) => { this.router.navigate(['/login']) },
         error: (error) => { console.log('Erro ao registrar usuário', error) }, 
       });
   }

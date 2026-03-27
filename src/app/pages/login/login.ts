@@ -11,6 +11,7 @@ import { User, UserLoginPayload } from '../../services/user';
 import { Router } from '@angular/router';
 import { email } from '@angular/forms/signals';
 import { finalize } from 'rxjs';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class Login {
     private formBuilder: FormBuilder,
     private userService: User,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private auth: Auth
   ) {
 
     this.form = formBuilder.group({
@@ -67,8 +69,12 @@ export class Login {
       this.userService.login(formData)
       .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
       .subscribe({
-          next: (response) => { this.router.navigate(['/']) },
-          error: (error) => { console.log('Erro ao fazer login', error) }, 
+          next: (response) => { 
+            this.auth.saveToken(response), 
+            this.router.navigate(['/']) },
+          error: (error) => { 
+            console.log('Erro ao fazer login', error) 
+          } 
         });
     }
 }

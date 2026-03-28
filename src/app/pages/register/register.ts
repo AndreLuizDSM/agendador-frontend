@@ -10,6 +10,7 @@ import { User, UserRegisterPayload } from '../../services/user';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-register',
@@ -35,16 +36,25 @@ export class Register {
     (private formBuilder: FormBuilder,
       private userService: User,
       private router: Router,
+      private auth: Auth,
       private cdr : ChangeDetectorRef // Resolver problema de atualização no DOM
     ) {
 
     this.form = formBuilder.group({
-      nome: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(12)], nonNullable: true}),
+      nome: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(10)], nonNullable: true}),
       email: this.formBuilder.control('', {validators: [Validators.required, Validators.email], nonNullable: true}),
       senha: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(6)], nonNullable: true})
     })
   }
 
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      console.log('Entrou aqui')
+      this.router.navigate(['/tasks'])
+    }
+
+  }
+  
   get fullNameError(): string | null {
     const fullNameControl = this.form.get('nome')
     if (fullNameControl?.hasError('required')) return 'Campo obrigatório*';

@@ -28,7 +28,7 @@ import { Auth } from '../../services/auth';
   encapsulation: ViewEncapsulation.None
 })
 export class Login {
-  form: FormGroup<{email: FormControl<string>, senha: FormControl<string>}>;
+  form: FormGroup<{ email: FormControl<string>, senha: FormControl<string> }>;
   isLoading = false;
 
   constructor(
@@ -40,9 +40,17 @@ export class Login {
   ) {
 
     this.form = formBuilder.group({
-      email: this.formBuilder.control('', { validators:[Validators.required, Validators.email], nonNullable: true}),
-      senha: this.formBuilder.control('', { validators:[Validators.required, Validators.minLength(6)], nonNullable: true})
+      email: this.formBuilder.control('', { validators: [Validators.required, Validators.email], nonNullable: true }),
+      senha: this.formBuilder.control('', { validators: [Validators.required, Validators.minLength(6)], nonNullable: true })
     })
+  }
+
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      console.log('Entrou aqui')
+      this.router.navigate(['/tasks'])
+    }
+
   }
 
   get emailError(): string | null {
@@ -57,24 +65,25 @@ export class Login {
   }
 
   submit() {
-      if (this.form.invalid) {
-        this.form.markAllAsTouched();
-        return
-      }
-  
-      const formData = this.form.value as UserLoginPayload;
-  
-      this.isLoading = true;
-      
-      this.userService.login(formData)
-      .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
-      .subscribe({
-          next: (response) => { 
-            this.auth.saveToken(response), 
-            this.router.navigate(['/']) },
-          error: (error) => { 
-            console.log('Erro ao fazer login', error) 
-          } 
-        });
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return
     }
+
+    const formData = this.form.value as UserLoginPayload;
+
+    this.isLoading = true;
+
+    this.userService.login(formData)
+      .pipe(finalize(() => { this.isLoading = false; this.cdr.markForCheck() }))
+      .subscribe({
+        next: (response) => {
+          this.auth.saveToken(response),
+            this.router.navigate(['/tasks'])
+        },
+        error: (error) => {
+          console.log('Erro ao fazer login', error)
+        }
+      });
+  }
 }

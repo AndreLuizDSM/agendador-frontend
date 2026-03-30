@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,7 +30,7 @@ import { Auth } from '../../services/auth';
 })
 export class Register {
   form: FormGroup<{nome: FormControl<string>,email: FormControl<string>, senha: FormControl<string>}>;
-  isLoading = false;
+  isLoading = signal(false);
 
   constructor
     (private formBuilder: FormBuilder,
@@ -49,7 +49,7 @@ export class Register {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      console.log('Entrou aqui')
+      console.log('Entrou ngOnInit')
       this.router.navigate(['/tasks'])
     }
 
@@ -80,10 +80,10 @@ export class Register {
 
     const formData = this.form.value as UserRegisterPayload;
 
-    this.isLoading = true;
+    this.isLoading.set(true)
     
     this.userService.register(formData)
-    .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
+    .pipe(finalize(() => {this.isLoading.set(false);} ))
     .subscribe({
         next: (response) => { this.router.navigate(['/login']) },
         error: (error) => { console.log('Erro ao registrar usuário', error) }, 

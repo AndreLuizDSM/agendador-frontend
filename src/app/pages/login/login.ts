@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -29,7 +29,7 @@ import { Auth } from '../../services/auth';
 })
 export class Login {
   form: FormGroup<{ email: FormControl<string>, senha: FormControl<string> }>;
-  isLoading = false;
+  isLoading = signal<boolean>(false);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +47,7 @@ export class Login {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      console.log('Entrou aqui')
+      console.log('Entrou ngOnInit')
       this.router.navigate(['/tasks'])
     }
 
@@ -72,13 +72,19 @@ export class Login {
 
     const formData = this.form.value as UserLoginPayload;
 
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     this.userService.login(formData)
-      .pipe(finalize(() => { this.isLoading = false; this.cdr.markForCheck() }))
+      .pipe(finalize(() => { this.isLoading.set(false)}))
       .subscribe({
         next: (response) => {
           this.auth.saveToken(response),
+          this.userService.getUserByEmail(response).subscribe(
+            {
+            
+              next: (user) => {console.log('user2:', user), this.auth.saveUser(user)}
+          })
+
             this.router.navigate(['/tasks'])
         },
         error: (error) => {

@@ -22,10 +22,10 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading" (click)="submit()">
+            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading()" (click)="submit()">
                 <span class="cad-button-content">
-                    {{isLoading ? "Entrando..." : "Login"}}
-                    @if (isLoading) {<mat-spinner diameter="20"></mat-spinner>}
+                    {{isLoading() ? "Entrando..." : "Login"}}
+                    @if (isLoading()) {<mat-spinner diameter="20"></mat-spinner>}
                 </span>
             </button>
         </mat-card-actions>

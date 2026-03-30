@@ -26,15 +26,15 @@
                     }
                 </mat-form-field>
 
-                <input-password-field [control]="passwordControl"></input-password-field>
+                <input-password-field [control]="passwordControl" [placeHolder]="'Cadastre sua senha'"></input-password-field>
             </form>
         </mat-card-content>
 
         <mat-card-actions>
-            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading" (click)="submit()">
+            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading()" (click)="submit()">
                 <span class="cad-button-content">
-                    {{isLoading ? "Cadastrando..." : "Cadastrar"}}
-                    @if (isLoading) {<mat-spinner diameter="20"></mat-spinner>}
+                    {{isLoading() ? "Cadastrando..." : "Cadastrar"}}
+                    @if (isLoading()) {<mat-spinner diameter="20"></mat-spinner>}
                 </span>
             </button>
         </mat-card-actions>

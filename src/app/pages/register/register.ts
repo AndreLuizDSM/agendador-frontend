@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -10,6 +10,7 @@ import { User, UserRegisterPayload } from '../../services/user';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-register',
@@ -29,22 +30,31 @@ import { finalize } from 'rxjs';
 })
 export class Register {
   form: FormGroup<{nome: FormControl<string>,email: FormControl<string>, senha: FormControl<string>}>;
-  isLoading = false;
+  isLoading = signal(false);
 
   constructor
     (private formBuilder: FormBuilder,
       private userService: User,
       private router: Router,
+      private auth: Auth,
       private cdr : ChangeDetectorRef // Resolver problema de atualização no DOM
     ) {
 
     this.form = formBuilder.group({
-      nome: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(12)], nonNullable: true}),
+      nome: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(10)], nonNullable: true}),
       email: this.formBuilder.control('', {validators: [Validators.required, Validators.email], nonNullable: true}),
       senha: this.formBuilder.control('', {validators: [Validators.required, Validators.minLength(6)], nonNullable: true})
     })
   }
 
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      console.log('Entrou ngOnInit')
+      this.router.navigate(['/tasks'])
+    }
+
+  }
+  
   get fullNameError(): string | null {
     const fullNameControl = this.form.get('nome')
     if (fullNameControl?.hasError('required')) return 'Campo obrigatório*';
@@ -70,10 +80,10 @@ export class Register {
 
     const formData = this.form.value as UserRegisterPayload;
 
-    this.isLoading = true;
+    this.isLoading.set(true)
     
     this.userService.register(formData)
-    .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
+    .pipe(finalize(() => {this.isLoading.set(false);} ))
     .subscribe({
         next: (response) => { this.router.navigate(['/login']) },
         error: (error) => { console.log('Erro ao registrar usuário', error) }, 

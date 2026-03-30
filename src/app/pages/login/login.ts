@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,6 +11,7 @@ import { User, UserLoginPayload } from '../../services/user';
 import { Router } from '@angular/router';
 import { email } from '@angular/forms/signals';
 import { finalize } from 'rxjs';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -27,20 +28,29 @@ import { finalize } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class Login {
-  form: FormGroup<{email: FormControl<string>, senha: FormControl<string>}>;
-  isLoading = false;
+  form: FormGroup<{ email: FormControl<string>, senha: FormControl<string> }>;
+  isLoading = signal<boolean>(false);
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: User,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private auth: Auth
   ) {
 
     this.form = formBuilder.group({
-      email: this.formBuilder.control('', { validators:[Validators.required, Validators.email], nonNullable: true}),
-      senha: this.formBuilder.control('', { validators:[Validators.required, Validators.minLength(6)], nonNullable: true})
+      email: this.formBuilder.control('', { validators: [Validators.required, Validators.email], nonNullable: true }),
+      senha: this.formBuilder.control('', { validators: [Validators.required, Validators.minLength(6)], nonNullable: true })
     })
+  }
+
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      console.log('Entrou ngOnInit')
+      this.router.navigate(['/tasks'])
+    }
+
   }
 
   get emailError(): string | null {
@@ -55,20 +65,31 @@ export class Login {
   }
 
   submit() {
-      if (this.form.invalid) {
-        this.form.markAllAsTouched();
-        return
-      }
-  
-      const formData = this.form.value as UserLoginPayload;
-  
-      this.isLoading = true;
-      
-      this.userService.login(formData)
-      .pipe(finalize(() => {this.isLoading = false; this.cdr.markForCheck()} ))
-      .subscribe({
-          next: (response) => { this.router.navigate(['/']) },
-          error: (error) => { console.log('Erro ao fazer login', error) }, 
-        });
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return
     }
+
+    const formData = this.form.value as UserLoginPayload;
+
+    this.isLoading.set(true);
+
+    this.userService.login(formData)
+      .pipe(finalize(() => { this.isLoading.set(false)}))
+      .subscribe({
+        next: (response) => {
+          this.auth.saveToken(response),
+          this.userService.getUserByEmail(response).subscribe(
+            {
+            
+              next: (user) => {console.log('user2:', user), this.auth.saveUser(user)}
+          })
+
+            this.router.navigate(['/tasks'])
+        },
+        error: (error) => {
+          console.log('Erro ao fazer login', error)
+        }
+      });
+  }
 }

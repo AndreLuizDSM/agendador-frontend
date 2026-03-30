@@ -24,6 +24,7 @@ export class PasswordField {
   }
 
   @Input({ required: true }) control!: FormControl;
+  @Input() placeHolder: string = "Digite sua senha";
 
   get passwordError(): string | null {
     const passwordControl = this.control

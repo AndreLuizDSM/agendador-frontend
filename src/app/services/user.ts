@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Auth } from './auth';
 
@@ -55,15 +55,24 @@ export class User {
   private apiUrl = 'http://localhost:8083'
   private jwtService = new JwtHelperService;
 
-  user = signal<UserResponse | null>(null);
+  private _user = signal<UserResponse | null>(null);
+  readonly user = this._user.asReadonly();
 
   constructor(private http: HttpClient, private authService: Auth) {
     const usuarioSalvo = authService.getUser();
-    if(usuarioSalvo) {
-      this.user.set(usuarioSalvo);
+    if (usuarioSalvo) {
+      this.setUser(usuarioSalvo);
     }
   }
 
+  getUser(): UserResponse | null {
+    return this.user();
+  }
+
+  setUser(data: UserResponse | null): void {
+    this._user.set(data);
+  }
+  
   register(body: UserRegisterPayload): Observable<UserResponse> {
     return this.http.post<UserResponse>(`${this.apiUrl}/usuario`, body)
   }
@@ -78,16 +87,12 @@ export class User {
     const email = this.getEmailByToken(token);
     if (!email) throw new Error('Token inválido');
 
-    const headers = new HttpHeaders({ Authorization: `${token}`})
+    const headers = new HttpHeaders({ Authorization: `${token}` })
 
     return this.http.get<UserResponse>(`${this.apiUrl}/usuario?email=${email}`, { headers })
 
   }
 
-  getUser(): UserResponse | null {
-    return this.user();
-  }
-  
   getEmailByToken(token: string): string | null {
     try {
       const decoded = this.jwtService.decodeToken(token);
@@ -96,5 +101,20 @@ export class User {
       console.log(error)
       return null
     }
+  }
+
+  saveTelefone(body: { numero: string, ddd: string }, token: string): Observable<any> {
+    const email = this.getEmailByToken(token);
+    if (!email) throw new Error('Token inválido');
+
+    const headers = new HttpHeaders({ Authorization: `${token}` })
+
+    return this.http.post<any>(`${this.apiUrl}/usuario/telefone`, body, { headers }).pipe(
+      switchMap(() => this.getUserByEmail(token)),
+      tap(user => {
+        this.setUser(user)
+        this.authService.saveUser(user)    
+      }) 
+    )
   }
 }

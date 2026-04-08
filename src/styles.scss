@@ -27,6 +27,8 @@ body {
   color: var(--mat-sys-on-surface);
   //font: var(--mat-sys-body-medium);
 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
@@ -34,6 +36,14 @@ body {
 /* You can add global styles to this file, and also import other style files */
 main {
   min-height: 100vh;
+}
+
+h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h3{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .full-width {

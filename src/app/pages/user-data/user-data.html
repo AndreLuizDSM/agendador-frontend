@@ -16,18 +16,66 @@
                 </form>
 
                 <h3><strong>Endereços</strong></h3>
-                <button matButton="filled" (click)="cadastrarEndereco()">Adicionar endereço</button>
 
-                <h3><strong>Telefones</strong></h3>
-                
                 <mat-list>
-                    
-                    @for (telefone of user()?.telefones ?? []; track telefone.numero) {
-                    <mat-list-item>{{telefone.ddd}} {{telefone.numero}}</mat-list-item>
+
+                    @for (endereco of user()?.enderecos; track endereco.id) {
+
+                    <div class="item-wrapper">
+                        <div class="item-text">
+                            <mat-list-item> {{endereco.cidade}} {{endereco.estado}} {{endereco.numero}} {{endereco
+                                .rua}} {{endereco.cep}}
+                                @if(endereco.complemento){<span>{{endereco.complemento}}</span>}
+                            </mat-list-item>
+                        </div>
+
+                        <div class="item-action">
+                            <button matIconButton (click)="editarEndereco(endereco)"
+                                aria-label="Example icon button with a vertical three dot icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+
+
+                        </div>
+
+                    </div>
                     }
 
                 </mat-list>
-                
+
+                <button matButton="filled" (click)="cadastrarEndereco()">Adicionar endereço</button>
+
+                <h3><strong>Telefones</strong></h3>
+
+                <mat-list>
+
+                    @for (telefone of user()?.telefones ?? []; track telefone.id) {
+
+                    <div class="item-wrapper">
+                        <div class="item-text">
+                            <mat-list-item>{{telefone.ddd}} {{telefone.numero}}</mat-list-item>
+                        </div>
+
+                        <div class="item-action">
+                            <button matIconButton (click)="editarTelefone(telefone)"
+                                aria-label="Example icon button with a vertical three dot icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+
+
+                        </div>
+
+                    </div>
+                    }
+
+                </mat-list>
+
                 <button matButton="filled" (click)="cadastrarTelefone()">Adicionar telefone</button>
             </mat-card-content>
         </mat-card-header>

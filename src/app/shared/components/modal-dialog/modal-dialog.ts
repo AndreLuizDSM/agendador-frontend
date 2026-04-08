@@ -1,6 +1,6 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -10,12 +10,16 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface DialogFields {
-  name: string
+  name: string,
   label: string,
+  value?: string | number,
+  type?: string,
+  button?: { icon: string, callback: (value: string, dialogRef: MatDialogRef<ModalDialog>) => void }
   validators?: any[]
 }
 
@@ -26,7 +30,7 @@ interface dialogData {
 
 @Component({
   selector: 'app-modal-dialog',
-  imports: [MatButtonModule, FormsModule, MatInputModule, MatFormFieldModule, MatDialogContent, MatDialogActions, ReactiveFormsModule],
+  imports: [MatButtonModule, FormsModule, MatInputModule, MatFormFieldModule, MatDialogContent, MatDialogActions, ReactiveFormsModule, MatIconModule],
   templateUrl: './modal-dialog.html',
   styleUrl: './modal-dialog.scss',
   encapsulation: ViewEncapsulation.None
@@ -37,24 +41,24 @@ export class ModalDialog {
   readonly dialogRef = inject(MatDialogRef<ModalDialog>);
   readonly data = inject<dialogData>(MAT_DIALOG_DATA);
 
-  fields:DialogFields[] = this.data.formConfig
+  fields: DialogFields[] = this.data.formConfig
 
   private buildControls(): Record<string, any> {
     const controls: Record<string, any> = {}
 
     this.fields.forEach(field => (
-      controls[field.name] = ['', field.validators || []]
+      controls[field.name] = [field.value ?? '', field.validators || []]
     ))
 
     return controls
   }
-  
+
   form: FormGroup = this.formBuilder.group(this.buildControls())
 
   onSave() {
     this.dialogRef.close(this.form.value);
   }
-  
+
   onCancel(): void {
     this.dialogRef.close();
   }

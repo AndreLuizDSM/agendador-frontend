@@ -15,13 +15,26 @@
             }
         }
     }
-    .mat-mdc-card-content{
+
+    .mat-mdc-card-content {
         padding: 0px;
     }
 
-    .item-wrapper{
+    .item-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .mdc-list-item__primary-text {
+            white-space: wrap;
+        }
+        .item-text {
+            width: 25rem;
+            
+        }
+        .mdc-list-item.mdc-list-item--with-one-line {
+            height: auto;
+        }
     }
+
 }

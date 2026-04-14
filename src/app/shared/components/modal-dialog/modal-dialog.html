@@ -5,18 +5,50 @@
         @for (field of fields; track field.name) {
         <mat-form-field class="full-width">
             <mat-label>{{field.label}}</mat-label>
+
+            @if(field.type === 'textarea'){
+            <textarea matInput [type]="field.type || 'text'" [formControlName]="field.name"></textarea>
+            }
+
+            @if (field.type === 'date') {
+            <mat-form-field>
+                <mat-label>Meeting date</mat-label>
+                <input matInput [matDatepicker]="datepicker" [formControlName]="field.name">
+                <mat-datepicker #datepicker />
+                <mat-datepicker-toggle [for]="datepicker" matSuffix />
+            </mat-form-field>
+
+            }
+
+            @if (field.type === 'time') {
+            <mat-form-field>
+                <mat-label>Meeting time</mat-label>
+                <input matInput [matTimepicker]="timepicker" [formControlName]="field.name">
+                <mat-timepicker #timepicker />
+                <mat-timepicker-toggle [for]="timepicker" matSuffix />
+            </mat-form-field>
+            }
+
+            @if (!field.type || field.type === 'number' || field.type === 'text') {
             <input matInput [type]="field.type || 'text'" [formControlName]="field.name" />
+            }
+            @if (fieldError) {
+            <mat-error>{{fieldError}}</mat-error>
+            }
+
 
             @if (field.button) {
             <button matIconButton matSuffix (click)="field.button.callback(form.get(field.name)?.value, dialogRef)">
                 <mat-icon>{{field.button.icon}}</mat-icon>
             </button>
             }
+
+
         </mat-form-field>
         }
     </form>
     <mat-dialog-actions>
         <button matButton (click)="onCancel()">Cancelar</button>
-        <button matButton (click)="onSave()">Ok</button>
+        <button matButton (click)="onSave()" [disabled]="checkValidators()">Ok</button>
     </mat-dialog-actions>
 </div>

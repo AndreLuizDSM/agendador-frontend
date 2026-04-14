@@ -1,3 +1,9 @@
 .modal-component {
-    padding: 1.2rem;
+    padding: 1.3rem;
+
+    mat-error {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 10px;
+    }
 }

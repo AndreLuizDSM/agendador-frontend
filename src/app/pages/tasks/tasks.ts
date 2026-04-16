@@ -55,7 +55,6 @@ export class Tasks {
           ...resto,
           dataEvento
         }
-
         
         console.log('Tarefa cadastrada ', payload)
         // this.userService.updateEndereco(endereco.id, result, token).subscribe({

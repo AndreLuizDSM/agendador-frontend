@@ -5,9 +5,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { filter, Subscription } from 'rxjs';
 import { RouterState } from '../../../../core/router/router-state';
-import { Auth } from '../../../../services/auth';
+import { Auth } from '../../../../services/auth.services';
 import {MatMenuModule} from '@angular/material/menu';
-import { User } from '../../../../services/user';
+import { User } from '../../../../services/user.services';
 
 @Component({
   selector: 'app-top-menu',

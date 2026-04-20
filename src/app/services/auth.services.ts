@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User, UserResponse } from './user';
+import { User, UserResponse } from './user.services';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,11 @@ export class Auth {
     localStorage.setItem(this.USER, JSON.stringify(user));
   }
 
+  getHeaders(): HttpHeaders {
+        const token = this.getToken();
+        return new HttpHeaders({ Authorization: `${token}` });
+      }
+  
   getUser(): UserResponse | null {
     const user = localStorage.getItem(this.USER)
     if (!user) return null
@@ -29,6 +35,8 @@ export class Auth {
     return JSON.parse(user) as UserResponse;
   }
 
+  
+  
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
   }

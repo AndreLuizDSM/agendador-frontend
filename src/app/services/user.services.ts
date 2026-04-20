@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Auth } from './auth';
+import { Auth } from './auth.services';
 
 // DTO Request
 export interface UserRegisterPayload {
@@ -54,7 +54,7 @@ export interface UserLoginPayload {
 })
 export class User {
 
-  private apiUrl = 'http://localhost:8083'
+  private apiUrl = 'http://localhost:8083' //TODO colocar em um .ENV
   private jwtService = new JwtHelperService;
 
   private _user = signal<UserResponse | null>(null);
@@ -114,9 +114,7 @@ export class User {
     const email = this.getEmailByToken(token);
     if (!email) throw new Error('Token inválido');
 
-    const headers = new HttpHeaders({ Authorization: `${token}` })
-
-    return this.http.post<any>(`${this.apiUrl}/usuario/telefone`, body, { headers }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/usuario/telefone`, body, { headers: this.authService.getHeaders() }).pipe(
       switchMap(() => this.getUserByEmail(token)),
       tap(user => {
         this.setUser(user)
@@ -125,12 +123,8 @@ export class User {
     )
   }
   updateTelefone(id: number, body: { numero: string, ddd: string }, token: string): Observable<any> {
-    const email = this.getEmailByToken(token);
-    if (!email) throw new Error('Token inválido');
 
-    const headers = new HttpHeaders({ Authorization: `${token}` })
-
-    return this.http.put<any>(`${this.apiUrl}/usuario/telefone?id=${id}`, body, { headers }).pipe(
+    return this.http.put<any>(`${this.apiUrl}/usuario/telefone?id=${id}`, body, { headers: this.authService.getHeaders() }).pipe(
       switchMap(() => this.getUserByEmail(token)),
       tap(user => {
         this.setUser(user)
@@ -148,12 +142,7 @@ export class User {
     cep: string
   }, token: string): Observable<any> {
 
-    const email = this.getEmailByToken(token);
-    if (!email) throw new Error('Token inválido');
-
-    const headers = new HttpHeaders({ Authorization: `${token}` })
-
-    return this.http.post<any>(`${this.apiUrl}/usuario/endereco`, body, { headers }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/usuario/endereco`, body, { headers: this.authService.getHeaders() }).pipe(
       switchMap(() => this.getUserByEmail(token)),
       tap(user => {
         this.setUser(user)
@@ -170,12 +159,8 @@ export class User {
     estado: string,
     cep: string
   }, token: string): Observable<any> {
-    const email = this.getEmailByToken(token);
-    if (!email) throw new Error('Token inválido');
 
-    const headers = new HttpHeaders({ Authorization: `${token}` })
-
-    return this.http.put<any>(`${this.apiUrl}/usuario/endereco?id=${id}`, body, { headers }).pipe(
+    return this.http.put<any>(`${this.apiUrl}/usuario/endereco?id=${id}`, body, { headers: this.authService.getHeaders() }).pipe(
       switchMap(() => this.getUserByEmail(token)),
       tap(user => {
         this.setUser(user)

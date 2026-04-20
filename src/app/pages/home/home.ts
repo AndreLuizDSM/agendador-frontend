@@ -1,7 +1,7 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from "@angular/router";
-import { Auth } from '../../services/auth';
+import { Auth } from '../../services/auth.services';
 
 @Component({
   selector: 'app-home',

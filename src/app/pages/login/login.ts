@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { PasswordField } from '../../shared/components/password-field/password-field';
-import { User, UserLoginPayload } from '../../services/user';
+import { User, UserLoginPayload } from '../../services/user.services';
 import { Router } from '@angular/router';
 import { email } from '@angular/forms/signals';
 import { finalize } from 'rxjs';
-import { Auth } from '../../services/auth';
+import { Auth } from '../../services/auth.services';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +47,6 @@ export class Login {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      console.log('Entrou ngOnInit')
       this.router.navigate(['/tasks'])
     }
 
@@ -82,7 +81,7 @@ export class Login {
           this.userService.getUserByEmail(response).subscribe(
             {
             
-              next: (user) => {console.log('user2:', user), this.auth.saveUser(user)}
+              next: (user) => {console.log('userlogin:', user), this.auth.saveUser(user)}
           })
 
             this.router.navigate(['/tasks'])

@@ -21,13 +21,13 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export interface DialogFields {
   name: string,
   label: string,
-  value?: string | number,
+  value?: string | number | Date
   type?: string,
   button?: { icon: string, callback: (value: string, dialogRef: MatDialogRef<ModalDialog>) => void }
   validators?: any[]
 }
 
-interface dialogData {
+export interface dialogData {
   title: string,
   formConfig: DialogFields[] //Tipar DialogFields como array para ter as funcionalidades
 }

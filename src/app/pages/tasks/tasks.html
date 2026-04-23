@@ -1,4 +1,6 @@
 <section class="task-component">
+
+    @if(!hasTasks()) {
     <mat-card appearance="outlined" class="task-card">
         <mat-card-content class="task-content">
             <h2>📋 Tarefas</h2>
@@ -7,4 +9,33 @@
             <button matButton="filled" (click)="adicionarTarefa()"><span>🖊️ Criar a primeira tarefa</span></button>
         </mat-card-content>
     </mat-card>
+    }@else {
+    <mat-accordion class="task-accordion full-width">
+        @for (task of tasks(); track task.id) {
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+
+                <mat-panel-title> {{task.nomeTarefa}} </mat-panel-title>
+
+                <mat-panel-description>
+                    {{task.dataEvento}}
+
+                </mat-panel-description>
+                <button class="task-action-button" matIconButton matSuffix (click)="editarTarefa(task)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button class="task-action-button" matIconButton matSuffix (click)="deletarTarefa(task.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+
+            </mat-expansion-panel-header>
+            <p>{{task.descricao}}</p>
+            <p>{{task.dataCriacao}}</p>
+        </mat-expansion-panel>
+        }
+    </mat-accordion>
+
+    <button matButton="filled" (click)="adicionarTarefa()"><span>+ Cadastrar nova tarefa</span></button>
+    }
 </section>

@@ -1,10 +1,14 @@
 .task-component {
-    height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 1rem;
+
+    &.empty {
+        min-height: 100vh;
+    }
 
     .task-card {
         max-width: 400px;
@@ -31,12 +35,21 @@
         margin: 5%;
     }
 
-    .task-expansion-panel{
-        margin: 0 12%;
+    .task-title {
+        white-space: nowrap;
     }
-    
-    .task-action-button{
+
+    .tasks-icon {
+        margin: 0 1% 0 2%;
+    }
+
+    .task-expansion-panel {
+        margin: 1rem 12%;
+        padding: 1rem;
+    }
+
+    .task-action-button {
         margin-right: 1%;
     }
-    
+
 }

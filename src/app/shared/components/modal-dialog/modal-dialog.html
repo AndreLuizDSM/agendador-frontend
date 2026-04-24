@@ -4,7 +4,7 @@
 
         @for (field of fields; track field.name) {
 
-        
+
         @if(field.type === 'textarea'){
         <mat-form-field class="full-width">
             <mat-label>{{field.label}}</mat-label>
@@ -12,10 +12,10 @@
         </mat-form-field>
         }
 
-        
+
         @if (field.type === 'date') {
-        
-            <mat-form-field class="medium-width" style="margin-right: 1.5rem;">
+
+        <mat-form-field class="medium-width" style="margin-right: 1.5rem;">
             <mat-label>Dia</mat-label>
             <input matInput [matDatepicker]="datepicker" [formControlName]="field.name">
             <mat-datepicker #datepicker />
@@ -32,7 +32,7 @@
             <mat-timepicker-toggle [for]="timepicker" matSuffix />
         </mat-form-field>
         }
-        
+
 
         @if (!field.type || field.type === 'number' || field.type === 'text') {
         <mat-form-field class="full-width">

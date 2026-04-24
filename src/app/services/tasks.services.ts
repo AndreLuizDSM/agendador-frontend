@@ -49,11 +49,11 @@ export class TasksServices {
         error: () => this._task.set([])
       })
   }
-  
+
   createTask(body: TaskPayLoad): Observable<TaskResponse> {
     return this.http.post<TaskResponse>(`${this.apiUrl}/tarefas`, body, { headers: this.authService.getHeaders() })
   }
-  
+
   updateTask(body: {
     nomeTarefa: string,
     descricao: string,
@@ -65,6 +65,6 @@ export class TasksServices {
 
   deleteTask(id: string): Observable<TaskResponse> {
     return this.http.delete<TaskResponse>(`${this.apiUrl}/tarefas?id=${id}`, { headers: this.authService.getHeaders() })
-     .pipe(tap(task => { this.getTask() }))
+      .pipe(tap(task => { this.getTask() }))
   }
 }

@@ -40,9 +40,20 @@ export class Tasks {
     return tempoFormatado;
   }
 
+  dataEventoString(dataEvento: string) {
+    const [data, tempo] = dataEvento.split(' ')
+    const [dia, mes, ano] = data.split('-');
+    const [horas, minutos, segundos] = tempo.split(':');
+
+    const dataString = `${dia}/${mes}/${ano}`
+    const tempoString = `${horas}:${minutos}`
+
+    return { dataString, tempoString };
+  }
+
   adicionarTarefa(): void {
     const formConfig: DialogFields[] = [
-      { name: 'nomeTarefa', label: 'Nome da tarefa', validators: [Validators.required] },
+      { name: 'nomeTarefa', label: 'Nome da tarefa', validators: [Validators.required, Validators.maxLength(35)] },
       { name: 'data', label: 'Dia', type: 'date', validators: [Validators.required] },
       { name: 'tempo', label: 'Hora da tarefa', type: 'time', validators: [Validators.required] },
       { name: 'descricao', label: 'Descrição', type: 'textarea', validators: [Validators.required] },
@@ -98,7 +109,7 @@ export class Tasks {
     console.log(tempoFormatado);
 
     const formConfig: DialogFields[] = [
-      { name: 'nomeTarefa', label: 'Nome da tarefa', value: tarefa.nomeTarefa, validators: [Validators.required] },
+      { name: 'nomeTarefa', label: 'Nome da tarefa', value: tarefa.nomeTarefa, validators: [Validators.required, Validators.maxLength(35)] },
       { name: 'data', label: 'Dia', type: 'date', value: tempoFormatado, validators: [Validators.required] },
       { name: 'tempo', label: 'Hora da tarefa', type: 'time', value: tempoFormatado, validators: [Validators.required] },
       { name: 'descricao', label: 'Descrição', type: 'textarea', value: tarefa.descricao, validators: [Validators.required] },

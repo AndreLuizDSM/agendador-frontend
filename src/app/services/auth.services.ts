@@ -19,28 +19,26 @@ export class Auth {
   }
 
   saveUser(user: UserResponse): void {
-     
+
     localStorage.setItem(this.USER, JSON.stringify(user));
   }
 
   getHeaders(): HttpHeaders {
-        const token = this.getToken();
-        return new HttpHeaders({ Authorization: `${token}` });
-      }
-  
+    const token = this.getToken();
+    return new HttpHeaders({ Authorization: `${token}` });
+  }
+
   getUser(): UserResponse | null {
     const user = localStorage.getItem(this.USER)
     if (!user) return null
-    
+
     return JSON.parse(user) as UserResponse;
   }
 
-  
-  
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
   }
-  
+
   isLoggedIn(): boolean {
 
     return !!this.getToken();  // !! -> Retorna valor boolean do método

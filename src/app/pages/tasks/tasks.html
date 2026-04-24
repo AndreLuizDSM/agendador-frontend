@@ -1,4 +1,4 @@
-<section class="task-component">
+<section class="task-component" [class.empty]="!hasTasks()">
 
     @if(!hasTasks()) {
     <mat-card appearance="outlined" class="task-card">
@@ -15,12 +15,13 @@
         <mat-expansion-panel class="task-expansion-panel">
             <mat-expansion-panel-header>
 
-                <mat-panel-title> {{task.nomeTarefa}} </mat-panel-title>
+                <mat-panel-title class="task-title"> {{task.nomeTarefa}} </mat-panel-title>
 
                 <mat-panel-description>
-                    {{task.dataEvento}}
-
+                    <mat-icon class="tasks-icon">calendar_month</mat-icon> {{dataEventoString(task.dataEvento).dataString}}
+                    <mat-icon class="tasks-icon">schedule</mat-icon> {{dataEventoString(task.dataEvento).tempoString}}
                 </mat-panel-description>
+
                 <button class="task-action-button" matIconButton matSuffix (click)="editarTarefa(task)">
                     <mat-icon>edit</mat-icon>
                 </button>

@@ -12,7 +12,7 @@
     }@else {
     <mat-accordion class="task-accordion full-width">
         @for (task of tasks(); track task.id) {
-        <mat-expansion-panel>
+        <mat-expansion-panel class="task-expansion-panel">
             <mat-expansion-panel-header>
 
                 <mat-panel-title> {{task.nomeTarefa}} </mat-panel-title>

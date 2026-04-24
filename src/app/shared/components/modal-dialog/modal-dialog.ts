@@ -27,7 +27,7 @@ export interface DialogFields {
   validators?: any[]
 }
 
-export interface dialogData {
+interface dialogData {
   title: string,
   formConfig: DialogFields[] //Tipar DialogFields como array para ter as funcionalidades
 }

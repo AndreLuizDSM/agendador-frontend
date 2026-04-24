@@ -11,6 +11,7 @@ import { ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
+import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -73,11 +74,11 @@ export class Tasks {
           dataEvento
         }
         this.taskService.createTask(payload)
-        .pipe(finalize(() => { this.taskService.getTask() }))
-        .subscribe({
-          next: () => console.log('Task criada!', payload),
-          error: () => console.log('Erro ao criar task', payload)
-        });
+          .pipe(finalize(() => { this.taskService.getTask() }))
+          .subscribe({
+            next: () => console.log('Task criada!', payload),
+            error: () => console.log('Erro ao criar task', payload)
+          });
       };
     });
   }
@@ -143,7 +144,7 @@ export class Tasks {
           ...resto,
           dataEvento,
         }
-        
+
         this.taskService.updateTask(payload, tarefa.id)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
@@ -156,25 +157,26 @@ export class Tasks {
       };
     });
   }
-  
+
   deletarTarefa(tarefa: string): void {
 
-    const formConfig: DialogFields[] = [
-      { name: 'nomeTarefa', label: 'Nome da tarefa', validators: [Validators.required] },
-    ]
-
-    const dialogRef = this.dialog.open(ModalDialog, {
-      data: { title: 'Editar tarefa', formConfig: formConfig },
+    const dialogRef = this.dialog.open(ConfirmModalDialog, {
+      data: {
+        title: 'Deletar tarefa',
+        message: 'Tem certeza que deseja excluir tarefa ?',
+        confirmButton: 'Deletar',
+        cancelButton: 'Cancelar'
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
         this.taskService.deleteTask(tarefa)
-        .pipe(finalize(() => { this.taskService.getTask() }))
-        .subscribe({
+          .pipe(finalize(() => { this.taskService.getTask() }))
+          .subscribe({
             next: () => { console.log('Task Excluída!') },
-            error: () => console.log('Erro ao excluir', )
+            error: () => console.log('Erro ao excluir',)
           });
       };
     });

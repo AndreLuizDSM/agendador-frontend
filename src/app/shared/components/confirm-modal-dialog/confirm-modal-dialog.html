@@ -1,1 +1,10 @@
-<p>confirm-modal-dialog works!</p>
+<div class="modal-component">
+    <h2 mat-dialog-title>{{data.title}} </h2>
+    <mat-dialog-content class="modal-content">
+        {{data.message}}
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button matButton (click)="onCancel()">{{data.cancelButton}}</button>
+        <button matButton (click)="onSave()">{{data.confirmButton}}</button>
+    </mat-dialog-actions>
+</div>

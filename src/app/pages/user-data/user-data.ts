@@ -12,6 +12,7 @@ import { Auth } from '../../services/auth.services';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-data',
@@ -33,8 +34,16 @@ export class UserData {
   private formBuilder = inject(FormBuilder);
   private userService = inject(User);
   private authService = inject(Auth);
+  private router = inject(Router);
   readonly dialog = inject(MatDialog);
 
+  ngOnInit(){
+    if(!this.authService.isLoggedIn()){
+      this.authService.logout()
+      this.router.navigate([''])
+    }
+  }
+  
   user = this.userService.user;
 
   form = this.formBuilder.group({

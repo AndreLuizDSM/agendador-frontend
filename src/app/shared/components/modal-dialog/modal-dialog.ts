@@ -38,7 +38,6 @@ interface dialogData {
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDialogContent,
     MatDialogActions,
     ReactiveFormsModule,
     MatIconModule,

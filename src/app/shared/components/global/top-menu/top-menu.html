@@ -20,7 +20,10 @@
   }
 
   @if (isLogged) {
-  <div mat-card-avatar [matMenuTriggerFor]="menu" class="image-user">{{inicialDoNome()}}</div>
+  <div class="menu-login">
+    <div style="margin-right: 1.3rem;"><button matButton [routerLink]="['/tasks']" class="login-button" style="font-size: 1.1rem;"><strong>Tarefas</strong></button></div>
+    <div mat-card-avatar [matMenuTriggerFor]="menu" class="image-user">{{inicialDoNome()}}</div>
+  </div>
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/user-data">Meus dados</button>

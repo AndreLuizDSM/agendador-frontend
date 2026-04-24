@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
 import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -25,8 +26,19 @@ export class Tasks {
 
   private formBuilder = inject(FormBuilder);
   private taskService = inject(TasksServices);
+  private authService = inject(Auth);
+  private router = inject(Router);
+
   readonly dialog = inject(MatDialog);
 
+  ngOnInit(): void{
+    if(!this.authService.isLoggedIn()){
+      this.authService.logout();
+      this.router.navigate([''])
+      console.log('Deslogado')
+    }
+  }
+  
   tasks = this.taskService.task;
   hasTasks = () => (this.tasks() ?? []).length > 0
 

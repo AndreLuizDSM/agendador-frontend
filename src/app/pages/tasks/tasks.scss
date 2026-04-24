@@ -36,7 +36,7 @@
     }
 
     .task-title {
-        white-space: nowrap;
+        //white-space: nowrap;
     }
 
     .tasks-icon {
@@ -46,10 +46,36 @@
     .task-expansion-panel {
         margin: 1rem 12%;
         padding: 1rem;
+
+        p {
+            white-space: normal;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
     }
 
     .task-action-button {
         margin-right: 1%;
+    }
+
+    .mat-expansion-panel-header-description {
+        justify-content: end !important;
+    }
+
+    .mat-expansion-panel-header {
+        height: auto !important;
+        min-height: 48px !important;
+    }
+
+    .mat-expansion-panel-header .mat-content {
+        flex-wrap: wrap !important;
+    }
+
+    .task-header-actions {
+        //flex-basis: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 
 }

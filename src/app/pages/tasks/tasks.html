@@ -13,26 +13,32 @@
     <mat-accordion class="task-accordion full-width">
         @for (task of tasks(); track task.id) {
         <mat-expansion-panel class="task-expansion-panel">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="task-panel-header">
 
                 <mat-panel-title class="task-title"> {{task.nomeTarefa}} </mat-panel-title>
 
-                <mat-panel-description>
-                    <mat-icon class="tasks-icon">calendar_month</mat-icon> {{dataEventoString(task.dataEvento).dataString}}
-                    <mat-icon class="tasks-icon">schedule</mat-icon> {{dataEventoString(task.dataEvento).tempoString}}
+
+                <mat-panel-description><mat-icon class="tasks-icon">calendar_month</mat-icon>
+                    {{dataEventoString(task.dataEvento).dataString}} <mat-icon
+                        class="tasks-icon">schedule</mat-icon>{{dataEventoString(task.dataEvento).tempoString}}
                 </mat-panel-description>
 
-                <button class="task-action-button" matIconButton matSuffix (click)="editarTarefa(task)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button class="task-action-button" matIconButton matSuffix (click)="deletarTarefa(task.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+
+
+
+                <div class="task-header-actions">
+                    <button class="task-action-button" matIconButton matSuffix (click)="editarTarefa(task)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="task-action-button" matIconButton matSuffix (click)="deletarTarefa(task.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
 
 
             </mat-expansion-panel-header>
             <p>{{task.descricao}}</p>
-            <p>{{task.dataCriacao}}</p>
+            <p>{{task.dataAlteracao ? 'Última alteração: ' + task.dataAlteracao : 'Não teve alteração' }}</p>
         </mat-expansion-panel>
         }
     </mat-accordion>

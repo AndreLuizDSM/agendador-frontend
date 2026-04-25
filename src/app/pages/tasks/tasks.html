@@ -19,8 +19,8 @@
 
 
                 <mat-panel-description><mat-icon class="tasks-icon">calendar_month</mat-icon>
-                    {{dataEventoString(task.dataEvento).dataString}} <mat-icon
-                        class="tasks-icon">schedule</mat-icon>{{dataEventoString(task.dataEvento).tempoString}}
+                    {{dataString(task.dataEvento).dataString}} <mat-icon
+                        class="tasks-icon">schedule</mat-icon>{{dataString(task.dataEvento).tempoString}}
                 </mat-panel-description>
 
 
@@ -38,7 +38,17 @@
 
             </mat-expansion-panel-header>
             <p>{{task.descricao}}</p>
-            <p>{{task.dataAlteracao ? 'Última alteração: ' + task.dataAlteracao : 'Não teve alteração' }}</p>
+            @if (task.dataAlteracao) {
+            
+            <mat-panel-description class="panel-description">
+                <span>Última alteração: </span>
+                 <mat-icon class="tasks-icon">calendar_month</mat-icon> 
+                <span> {{dataString(task.dataAlteracao).dataString}} </span>
+                 <mat-icon class="tasks-icon">schedule</mat-icon> 
+                <span> {{dataString(task.dataAlteracao).tempoString}} </span>
+            </mat-panel-description>
+
+        }
         </mat-expansion-panel>
         }
     </mat-accordion>

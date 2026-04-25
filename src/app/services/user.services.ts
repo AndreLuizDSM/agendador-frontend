@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Auth } from './auth.services';
+import { Router } from '@angular/router';
 
 // DTO Request
 export interface UserRegisterPayload {
@@ -60,7 +61,7 @@ export class User {
   private _user = signal<UserResponse | null>(null);
   readonly user = this._user.asReadonly();
 
-  constructor(private http: HttpClient, private authService: Auth) {
+  constructor(private http: HttpClient, private authService: Auth, private router: Router) {
     const usuarioSalvo = authService.getUser();
     if (usuarioSalvo) {
       this.setUser(usuarioSalvo);
@@ -166,6 +167,14 @@ export class User {
         this.setUser(user)
         this.authService.saveUser(user)
       })
+    )
+  }
+
+  deleteUser(email: string): void {
+
+    this.http.delete<void>(`${this.apiUrl}/usuario/${email}`, { headers: this.authService.getHeaders() }).subscribe(
+      () => {this.authService.deleteToken(), 
+            this._user.set(null)}
     )
   }
 }

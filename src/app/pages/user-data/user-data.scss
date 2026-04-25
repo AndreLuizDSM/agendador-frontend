@@ -37,4 +37,24 @@
         }
     }
 
+    .user-card-content{
+        display: flex;
+        justify-content: center;
+    }
+
+    .button-delete-account{
+        background-color: red;
+        max-width: 50%;
+        margin-top: 1rem;
+        
+    }
+
+    @media screen and (max-width: 500px) {
+        .user-card-content{
+            display: flex;
+            justify-content: flex-start;
+            width: 400px !important;
+        }
+    }
+
 }

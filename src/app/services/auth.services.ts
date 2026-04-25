@@ -25,6 +25,10 @@ export class Auth {
     localStorage.setItem(this.USER, JSON.stringify(user));
   }
 
+  deleteToken(): void{
+    localStorage.clear();
+  }
+
   getExpirationTimeByToken(token: string): Date | null{
     try {
     const decoded = this.jwtService.decodeToken(token);

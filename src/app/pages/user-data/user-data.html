@@ -1,5 +1,6 @@
 <div class="user-data-component">
     <mat-card class="user-data-card" appearance="outlined">
+
         <mat-card-header class="user-data-header">
             <mat-card-title class="user-data-title"> Meus dados</mat-card-title>
             <mat-card-content>
@@ -41,7 +42,7 @@
                                 aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            
+
                             <button matIconButton aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -70,7 +71,7 @@
                                 aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            
+
                             <button matIconButton aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -82,7 +83,16 @@
                 </mat-list>
 
                 <button matButton="filled" (click)="cadastrarTelefone()">Adicionar telefone</button>
+
             </mat-card-content>
+
+            
+                <mat-card-content class="user-card-content">
+                    <button matButton="filled" (click)="deletarUsuario(user()?.email)"
+                        class="button-delete-account">Excluir conta</button>
+                </mat-card-content>
+            
+
         </mat-card-header>
 
     </mat-card>

@@ -11,8 +11,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Auth } from '../../services/auth.services';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, ɵEmptyOutletComponent } from '@angular/router';
+import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-user-data',
@@ -23,8 +25,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatListModule,
     MatIconModule,
-    MatTooltipModule
-  ],
+    MatTooltipModule],
   templateUrl: './user-data.html',
   styleUrl: './user-data.scss',
   encapsulation: ViewEncapsulation.None
@@ -37,21 +38,28 @@ export class UserData {
   private router = inject(Router);
   readonly dialog = inject(MatDialog);
 
-  ngOnInit(){
-    if(!this.authService.isLoggedIn()){
+  ngOnInit(): void {
+    if (!this.authService.isLoggedIn()) {
       this.authService.logout()
       this.router.navigate([''])
     }
   }
-  
+
+  ngOnChanges(): void {
+    if (!this.authService.isLoggedIn()) {
+      this.authService.logout()
+      this.router.navigate([''])
+      console.log('ngdoCHECK token: ', this.authService.getToken())
+    }
+    console.log('ngdoCHECK token: ', this.authService.getToken())
+  }
+
   user = this.userService.user;
 
   form = this.formBuilder.group({
     nome: [{ value: this.user()?.nome || '', disabled: true }],
     email: [{ value: this.user()?.email || '', disabled: true }]
   })
-
-
 
   buscarEnderecoPeloCep(cep: string, dialogRef: MatDialogRef<ModalDialog, any>) {
     this.userService.getEnderecoByCep(cep).subscribe({
@@ -77,14 +85,14 @@ export class UserData {
         name: 'cep', label: 'CEP', validators: [Validators.required],
         button: {
           icon: 'search',
-          callback: (cep:string) => this.buscarEnderecoPeloCep(cep, dialogRef)
+          callback: (cep: string) => this.buscarEnderecoPeloCep(cep, dialogRef)
         }
       },
       { name: 'rua', label: 'Rua', validators: [Validators.required] },
       { name: 'numero', label: 'Numero' },
-      { name: 'cidade', label: 'Cidade', validators: [Validators.required]},
-      { name: 'estado', label: 'Estado', validators: [Validators.required , Validators.maxLength(2)]},
-      { name: 'complemento', label: 'Complemento'},
+      { name: 'cidade', label: 'Cidade', validators: [Validators.required] },
+      { name: 'estado', label: 'Estado', validators: [Validators.required, Validators.maxLength(2)] },
+      { name: 'complemento', label: 'Complemento' },
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -120,14 +128,14 @@ export class UserData {
         name: 'cep', label: 'CEP', value: endereco.cep, validators: [Validators.required],
         button: {
           icon: 'search',
-          callback: (cep:string) => this.buscarEnderecoPeloCep(cep, dialogRef)
+          callback: (cep: string) => this.buscarEnderecoPeloCep(cep, dialogRef)
         }
       },
       { name: 'rua', label: 'Rua', value: endereco.rua, validators: [Validators.required] },
       { name: 'numero', label: 'Numero', value: endereco.numero, type: 'number' },
       { name: 'cidade', label: 'Cidade', value: endereco.cidade, validators: [Validators.required] },
       { name: 'estado', label: 'Estado', value: endereco.estado, validators: [Validators.required, Validators.maxLength(2)] },
-      { name: 'complemento', label: 'Complemento', value: endereco.complemento},
+      { name: 'complemento', label: 'Complemento', value: endereco.complemento },
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -166,6 +174,7 @@ export class UserData {
       };
     });
   }
+
   editarTelefone(telefone: { id: number, ddd: string, numero: string }) {
 
     const token = this.authService.getToken();
@@ -189,5 +198,30 @@ export class UserData {
         });
       };
     });
+  }
+
+  deletarUsuario(email: string | undefined): void {
+    if (!email) return
+
+    const dialogRef = this.dialog.open(ConfirmModalDialog, {
+      data: {
+        title: 'Apagar usuário',
+        message: 'Deseja deletar usuário ?',
+        confirmButton: 'Deletar',
+        cancelButton: 'Cancelar'
+      }
+    })
+
+    dialogRef.afterClosed()
+    .subscribe(result => {
+      if (result) {
+
+        this.userService.deleteUser(email)
+        console.log('Usuário deletado', result)
+        this.router.navigate([''])
+        
+        
+      }
+    })
   }
 }

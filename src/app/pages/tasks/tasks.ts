@@ -52,7 +52,7 @@ export class Tasks {
     return tempoFormatado;
   }
 
-  dataEventoString(dataEvento: string) {
+  dataString(dataEvento: string) {
     const [data, tempo] = dataEvento.split(' ')
     const [dia, mes, ano] = data.split('-');
     const [horas, minutos, segundos] = tempo.split(':');

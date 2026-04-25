@@ -77,14 +77,14 @@ export class Login {
       .pipe(finalize(() => { this.isLoading.set(false)}))
       .subscribe({
         next: (response) => {
-          this.auth.saveToken(response),
-          this.userService.getUserByEmail(response).subscribe(
-            {
-            
-              next: (user) => {console.log('userlogin:', user), this.auth.saveUser(user)}
-          })
-
-            this.router.navigate(['/tasks'])
+          this.auth.saveToken(response);
+          this.userService.getUserByEmail(response).subscribe({
+            next: (user) => {
+              this.auth.saveUser(user);
+              this.userService.setUser(user);
+              this.router.navigate(['/tasks']);
+            }
+          });
         },
         error: (error) => {
           console.log('Erro ao fazer login', error)

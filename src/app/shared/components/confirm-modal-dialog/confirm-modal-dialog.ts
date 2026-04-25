@@ -46,17 +46,4 @@ export class ConfirmModalDialog {
     this.dialogRef.close();
   }
 
-  // checkValidators(): boolean {
-  //   if (this.form.invalid) {
-  //     this.form.markAllAsTouched
-  //     return true
-  //   }
-  //   return false
-  // }
-
-  // get fieldError(): string | null {
-  //   const fieldControl = this.form.get('') //TODO Achar um parâmetro do modal para verificar se tem error e colocar o matError
-  //   if (fieldControl?.hasError('required')) return 'Campo obrigatório*';
-  //   return null
-  // }
 }

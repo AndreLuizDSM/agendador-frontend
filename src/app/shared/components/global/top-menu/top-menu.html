@@ -14,14 +14,15 @@
 
   <span class="spacer"></span>
 
-  <button matButton [routerLink]="['/login']" [disabled]="isOnLogin()" class="login-button">Entrar</button>
+  <button matButton [routerLink]="['/login']" [disabled]="isOnLogin()" class="login-button buttons">Entrar</button>
   <button matButton [routerLink]="['/register']" routerLinkActive="register" [disabled]="isOnRegister()"
-    class="cad-button">Cadastrar</button>
+    class="cad-button buttons">Cadastrar</button>
   }
 
   @if (isLogged) {
   <div class="menu-login">
-    <div style="margin-right: 1.3rem;"><button matButton [routerLink]="['/tasks']" class="login-button" style="font-size: 1.1rem;"><strong>Tarefas</strong></button></div>
+    <button matButton [routerLink]="['/tasks']" class="tarefa-button" >
+      <strong>Tarefas</strong> </button>
     <div mat-card-avatar [matMenuTriggerFor]="menu" class="image-user">{{inicialDoNome()}}</div>
   </div>
 

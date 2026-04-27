@@ -7,11 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { PasswordField } from '../../shared/components/password-field/password-field';
-import { User, UserLoginPayload } from '../../services/user.services';
+import { User } from '../../services/user.services';
 import { Router } from '@angular/router';
 import { email } from '@angular/forms/signals';
 import { finalize } from 'rxjs';
 import { Auth } from '../../services/auth.services';
+import { UserLoginPayload } from '../../shared/components/interfaces';
 
 @Component({
   selector: 'app-login',

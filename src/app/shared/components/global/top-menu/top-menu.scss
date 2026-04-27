@@ -10,9 +10,21 @@
 
 .app-toolbar-top-menu button {
 
-    height: 75%;
+    height: 75% !important;
     transition: background-color .3s ease, ease-out 0.1s !important;
-    border-radius: 40px;
+    border-radius: 40px !important;
+}
+
+.tarefa-button {
+    min-height: 50px !important;
+    height: 75%px !important;
+    transition: background-color .3s ease, ease-out 0.1s !important;
+    border-radius: 40px !important;
+    font-size: 1.1rem;
+}
+
+.tarefa-button::before, .tarefa-button::after {
+    border-radius: 40px !important;
 }
 
 .app-toolbar-top-menu .login-button:hover {
@@ -49,11 +61,12 @@
     display: block;
 }
 
-.menu-login{
+.menu-login {
     display: flex;
     white-space: nowrap;
     align-items: center;
-    
+    justify-content: space-between;
+    width: 9rem;
 }
 
 .image-user {

@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { User, UserResponse } from '../../services/user.services';
+import { User } from '../../services/user.services';
 import { email } from '@angular/forms/signals';
 import { DialogFields, ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, ɵEmptyOutletComponent } from '@angular/router';
 import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
 import { finalize } from 'rxjs';
+import { EnderecoResponse, TelefoneResponse } from '../../shared/components/interfaces';
 
 @Component({
   selector: 'app-user-data',
@@ -64,6 +65,7 @@ export class UserData {
   buscarEnderecoPeloCep(cep: string, dialogRef: MatDialogRef<ModalDialog, any>) {
     this.userService.getEnderecoByCep(cep).subscribe({
       next: (response) => {
+        console.log(response)
         dialogRef.componentInstance.form.patchValue({
           rua: response.logradouro,
           complemento: response.complemento,
@@ -109,15 +111,7 @@ export class UserData {
     });
   }
 
-  editarEndereco(endereco: {
-    id: number,
-    rua: string,
-    numero: number,
-    complemento: string,
-    cidade: string,
-    estado: string,
-    cep: string
-  }) {
+  editarEndereco(endereco: EnderecoResponse) {
 
     const token = this.authService.getToken();
     if (!token) return;
@@ -175,7 +169,7 @@ export class UserData {
     });
   }
 
-  editarTelefone(telefone: { id: number, ddd: string, numero: string }) {
+  editarTelefone(telefone: TelefoneResponse) {
 
     const token = this.authService.getToken();
     if (!token) return;

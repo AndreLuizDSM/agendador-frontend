@@ -4,11 +4,9 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    flex: 1;
     padding: 1rem;
-
-    &.empty {
-        min-height: 100vh;
-    }
+    margin-right: 4%;
 
     .task-card {
         max-width: 400px;
@@ -55,7 +53,7 @@
     }
 
     .task-action-button {
-        margin-right: 1%;
+        margin-right: 2.5%;
     }
 
     .mat-expansion-panel-header-description {
@@ -81,6 +79,13 @@
     .panel-description{
         justify-content: flex-start !important;
         align-items: stretch;
+    }
+
+    .btn-nova-tarefa {
+        position: fixed;
+        bottom: 90px;
+        right: 2rem;
+        z-index: 50;
     }
 
 }

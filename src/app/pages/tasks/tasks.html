@@ -27,10 +27,10 @@
 
 
                 <div class="task-header-actions">
-                    <button class="task-action-button" matIconButton matSuffix (click)="editarTarefa(task)">
+                    <button class="task-action-button" matIconButton matSuffix (click)="$event.stopPropagation() ; editarTarefa(task)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button class="task-action-button" matIconButton matSuffix (click)="deletarTarefa(task.id)">
+                    <button class="task-action-button" matIconButton matSuffix (click)="$event.stopPropagation() ; deletarTarefa(task.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -39,20 +39,25 @@
             </mat-expansion-panel-header>
             <p>{{task.descricao}}</p>
             @if (task.dataAlteracao) {
-            
+
             <mat-panel-description class="panel-description">
                 <span>Última alteração: </span>
-                 <mat-icon class="tasks-icon">calendar_month</mat-icon> 
+                <mat-icon class="tasks-icon">calendar_month</mat-icon>
                 <span> {{dataString(task.dataAlteracao).dataString}} </span>
-                 <mat-icon class="tasks-icon">schedule</mat-icon> 
+                <mat-icon class="tasks-icon">schedule</mat-icon>
                 <span> {{dataString(task.dataAlteracao).tempoString}} </span>
             </mat-panel-description>
 
-        }
+            }
         </mat-expansion-panel>
         }
     </mat-accordion>
 
-    <button matButton="filled" (click)="adicionarTarefa()"><span>+ Cadastrar nova tarefa</span></button>
+    }
+
+    @if(hasTasks()) {
+    <button matButton="filled" class="btn-nova-tarefa" (click)="adicionarTarefa()">
+        <span>+ Cadastrar nova tarefa</span>
+    </button>
     }
 </section>

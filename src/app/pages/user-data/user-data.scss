@@ -1,4 +1,9 @@
+app-root:has(app-user-data) footer {
+    display: none;
+}
+
 .user-data-component {
+    padding-bottom: 60px;
     .user-data-card {
         max-width: 550px;
         margin: 2rem auto;

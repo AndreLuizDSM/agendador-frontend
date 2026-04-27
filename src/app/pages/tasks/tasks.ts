@@ -31,18 +31,20 @@ export class Tasks {
 
   readonly dialog = inject(MatDialog);
 
-  ngOnInit(): void{
-    if(!this.authService.isLoggedIn()){
+  ngOnInit(): void {
+    if (!this.authService.isLoggedIn()) {
       this.authService.logout();
       this.router.navigate([''])
       console.log('Deslogado')
     }
   }
-  
+
   tasks = this.taskService.task;
   hasTasks = () => (this.tasks() ?? []).length > 0
 
   separarDataEvento(dataEvento: string) {
+    //Método para preencher formConfig
+    
     const [data, tempo] = dataEvento.split(' ')
     const [dia, mes, ano] = data.split('-').map(Number);
     const [horas, minutos, segundos] = tempo.split(':').map(Number);
@@ -116,9 +118,7 @@ export class Tasks {
     dataAlteracao: string,
   }): void {
 
-    console.log(tarefa.dataEvento);
     const tempoFormatado = this.separarDataEvento(tarefa.dataEvento);
-    console.log(tempoFormatado);
 
     const formConfig: DialogFields[] = [
       { name: 'nomeTarefa', label: 'Nome da tarefa', value: tarefa.nomeTarefa, validators: [Validators.required, Validators.maxLength(35)] },
@@ -134,24 +134,7 @@ export class Tasks {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const formatter = (n: number) => n.toString().padStart(2, "0");
-        const dataAtual = new Date();
-
-        const anoAtual = dataAtual.getFullYear();
-        const mesAtual = formatter(dataAtual.getMonth() + 1);
-        const diaAtual = formatter(dataAtual.getDate());
-
-        const horaAtual = formatter(dataAtual.getHours());
-        const minutoAtual = formatter(dataAtual.getMinutes());
-        const segundoAtual = formatter(dataAtual.getSeconds());
-
-        // dd/MM/yyyy HH:mm:ss
-
-        const dataAlteracao = (`${diaAtual}/${mesAtual}/${anoAtual} ${horaAtual}:${minutoAtual}:${segundoAtual}`);
-
-        console.log(dataAlteracao)
-
         const { data, tempo, ...resto } = result;
-
         const ano = data.getFullYear();
         const mes = formatter(data.getMonth() + 1);
         const dia = formatter(data.getDate());
@@ -160,7 +143,7 @@ export class Tasks {
         const minuto = formatter(tempo.getMinutes());
         const segundo = formatter(tempo.getSeconds());
 
-        // dd-MM-yyyy HH:mm:ss
+        // // dd-MM-yyyy HH:mm:ss
 
         const dataEvento = (`${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`);
         const payload = {

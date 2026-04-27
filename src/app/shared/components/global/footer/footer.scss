@@ -1,7 +1,11 @@
 footer {
-        background-color: rgba(128, 128, 128, 0.418) !important;
-        text-align: center;
-        padding: 1.2rem;
-        font-size: 0.9rem;
-        
-    }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgb(128, 128, 128) !important;
+    text-align: center;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+}

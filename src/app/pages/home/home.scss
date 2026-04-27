@@ -2,12 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3.5rem 2rem;
+    padding: 2rem;
     flex-wrap: wrap;
+    background-color: white;
+    flex: 1;
 
     .hero-text {
         max-width: 500px;
-
     }
 
     h1 {
@@ -33,4 +34,20 @@
         margin: 0px 6px;
     }
 
+    @media (max-width: 425px) {
+        padding: 1.5rem 1rem;
+
+        h1 {
+            font-size: 1.6rem !important;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-image img {
+            width: 70%;
+        }
+    }
 }

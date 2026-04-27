@@ -1,0 +1,61 @@
+<div class="modal-component">
+    <h2 mat-dialog-title>{{data.title}} </h2>
+    <form [formGroup]="form">
+
+        @for (field of fields; track field.name) {
+
+
+        @if(field.type === 'textarea'){
+        <mat-form-field class="full-width">
+            <mat-label>{{field.label}}</mat-label>
+            <textarea matInput [type]="field.type || 'text'" [formControlName]="field.name"></textarea>
+        </mat-form-field>
+        }
+
+
+        @if (field.type === 'date') {
+
+        <mat-form-field class="medium-width" style="margin-right: 1.5rem;">
+            <mat-label>Dia</mat-label>
+            <input matInput [matDatepicker]="datepicker" [formControlName]="field.name">
+            <mat-datepicker #datepicker />
+            <mat-datepicker-toggle [for]="datepicker" matSuffix />
+        </mat-form-field>
+
+        }
+
+        @if (field.type === 'time') {
+        <mat-form-field class="medium-width">
+            <mat-label>Hora</mat-label>
+            <input matInput [matTimepicker]="timepicker" [formControlName]="field.name">
+            <mat-timepicker #timepicker />
+            <mat-timepicker-toggle [for]="timepicker" matSuffix />
+        </mat-form-field>
+        }
+
+
+        @if (!field.type || field.type === 'number' || field.type === 'text') {
+        <mat-form-field class="full-width">
+            <mat-label>{{field.label}}</mat-label>
+            <input matInput [type]="field.type || 'text'" [formControlName]="field.name" />
+
+            @if (fieldError) {
+            <mat-error>{{fieldError}}</mat-error>
+            }
+            @if (field.button) {
+            <button matIconButton matSuffix (click)="field.button.callback(form.get(field.name)?.value, dialogRef)">
+                <mat-icon>{{field.button.icon}}</mat-icon>
+            </button>
+            }
+
+        </mat-form-field>
+
+        }}
+
+
+    </form>
+    <mat-dialog-actions>
+        <button matButton (click)="onCancel()">Cancelar</button>
+        <button matButton (click)="onSave()" [disabled]="checkValidators()">Ok</button>
+    </mat-dialog-actions>
+</div>

@@ -3,11 +3,13 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .app-toolbar-top-menu .spacer {
     flex: 1 1 auto;
 }
-.app-toolbar-top-menu button{
-    
+
+.app-toolbar-top-menu button {
+
     height: 75%;
     transition: background-color .3s ease, ease-out 0.1s !important;
     border-radius: 40px;
@@ -15,27 +17,28 @@
 
 .app-toolbar-top-menu .login-button:hover {
     background-color: rgba(134, 134, 134, 0.226);
-    
+
 }
 
 .app-toolbar-top-menu .cad-button {
     background-color: rgba(0, 0, 236, 0.664);
     color: white;
 }
+
 .app-toolbar-top-menu .cad-button:disabled {
     background-color: rgba(105, 105, 105, 0.664);
     transition: none;
 }
 
 .app-toolbar-top-menu .cad-button:hover {
-    background-color: rgb(0, 0, 255); 
-    
+    background-color: rgb(0, 0, 255);
+
 }
 
-.app-toolbar-top-menu .logo{
+.app-toolbar-top-menu .logo {
     display: flex;
     align-items: center;
-    
+
 }
 
 .app-toolbar-top-menu .logo-img {
@@ -44,6 +47,13 @@
     min-width: 89px;
     height: 75px;
     display: block;
+}
+
+.menu-login{
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    
 }
 
 .image-user {

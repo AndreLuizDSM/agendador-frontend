@@ -1,4 +1,9 @@
+app-root:has(app-user-data) footer {
+    display: none;
+}
+
 .user-data-component {
+    padding-bottom: 60px;
     .user-data-card {
         max-width: 550px;
         margin: 2rem auto;
@@ -15,7 +20,46 @@
             }
         }
     }
-    .mat-mdc-card-content{
+
+    .mat-mdc-card-content {
         padding: 0px;
     }
+
+    .item-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .mdc-list-item__primary-text {
+            white-space: wrap;
+        }
+        .item-text {
+            width: 25rem;
+            
+        }
+        .mdc-list-item.mdc-list-item--with-one-line {
+            height: auto;
+        }
+    }
+
+    .user-card-content{
+        display: flex;
+        justify-content: center;
+    }
+
+    .button-delete-account{
+        background-color: red;
+        max-width: 50%;
+        margin-top: 1rem;
+        
+    }
+
+    @media screen and (max-width: 500px) {
+        .user-card-content{
+            display: flex;
+            justify-content: flex-start;
+            width: 400px !important;
+        }
+    }
+
 }

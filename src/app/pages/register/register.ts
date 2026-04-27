@@ -6,11 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PasswordField } from "../../shared/components/password-field/password-field";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User, UserRegisterPayload } from '../../services/user';
+import { User, UserRegisterPayload } from '../../services/user.services';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { Auth } from '../../services/auth';
+import { Auth } from '../../services/auth.services';
 
 @Component({
   selector: 'app-register',

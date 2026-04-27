@@ -1,27 +1,91 @@
 .task-component {
-    height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    flex: 1;
     padding: 1rem;
+    margin-right: 4%;
 
     .task-card {
         max-width: 400px;
         width: 100%;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.178);
     }
-    
+
     .task-content {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        flex-wrap: nowrap;
 
         p {
             font-size: 1.2rem;
-            font-weight:500;
+            font-weight: 500;
             line-height: 1.2rem;
         }
 
     }
+
+    .task-accordion {
+        margin: 5%;
+    }
+
+    .task-title {
+        //white-space: nowrap;
+    }
+
+    .tasks-icon {
+        margin: 0 1% 0 2%;
+    }
+
+    .task-expansion-panel {
+        margin: 1rem 12%;
+        padding: 1rem;
+
+        p {
+            white-space: normal;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    .task-action-button {
+        margin-right: 2.5%;
+    }
+
+    .mat-expansion-panel-header-description {
+        justify-content: end !important;
+    }
+
+    .mat-expansion-panel-header {
+        height: auto !important;
+        min-height: 48px !important;
+    }
+
+    .mat-expansion-panel-header .mat-content {
+        flex-wrap: wrap !important;
+    }
+
+    .task-header-actions {
+        //flex-basis: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .panel-description{
+        justify-content: flex-start !important;
+        align-items: stretch;
+    }
+
+    .btn-nova-tarefa {
+        position: fixed;
+        bottom: 90px;
+        right: 2rem;
+        z-index: 50;
+    }
+
 }

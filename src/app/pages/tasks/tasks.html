@@ -1,10 +1,63 @@
-<section class="task-component">
+<section class="task-component" [class.empty]="!hasTasks()">
+
+    @if(!hasTasks()) {
     <mat-card appearance="outlined" class="task-card">
         <mat-card-content class="task-content">
             <h2>📋 Tarefas</h2>
             <p>Sem tarefas!</p>
             <p>Crie a sua tarefa!</p>
-            <button matButton="filled"><span>🖊️ Criar a primeira tarefa</span></button>
+            <button matButton="filled" (click)="adicionarTarefa()"><span>🖊️ Criar a primeira tarefa</span></button>
         </mat-card-content>
     </mat-card>
+    }@else {
+    <mat-accordion class="task-accordion full-width">
+        @for (task of tasks(); track task.id) {
+        <mat-expansion-panel class="task-expansion-panel">
+            <mat-expansion-panel-header class="task-panel-header">
+
+                <mat-panel-title class="task-title"> {{task.nomeTarefa}} </mat-panel-title>
+
+
+                <mat-panel-description><mat-icon class="tasks-icon">calendar_month</mat-icon>
+                    {{dataString(task.dataEvento).dataString}} <mat-icon
+                        class="tasks-icon">schedule</mat-icon>{{dataString(task.dataEvento).tempoString}}
+                </mat-panel-description>
+
+
+
+
+                <div class="task-header-actions">
+                    <button class="task-action-button" matIconButton matSuffix (click)="$event.stopPropagation() ; editarTarefa(task)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="task-action-button" matIconButton matSuffix (click)="$event.stopPropagation() ; deletarTarefa(task.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+
+
+            </mat-expansion-panel-header>
+            <p>{{task.descricao}}</p>
+            @if (task.dataAlteracao) {
+
+            <mat-panel-description class="panel-description">
+                <span>Última alteração: </span>
+                <mat-icon class="tasks-icon">calendar_month</mat-icon>
+                <span> {{dataString(task.dataAlteracao).dataString}} </span>
+                <mat-icon class="tasks-icon">schedule</mat-icon>
+                <span> {{dataString(task.dataAlteracao).tempoString}} </span>
+            </mat-panel-description>
+
+            }
+        </mat-expansion-panel>
+        }
+    </mat-accordion>
+
+    }
+
+    @if(hasTasks()) {
+    <button matButton="filled" class="btn-nova-tarefa" (click)="adicionarTarefa()">
+        <span>+ Cadastrar nova tarefa</span>
+    </button>
+    }
 </section>

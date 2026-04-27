@@ -1,0 +1,13 @@
+.modal-component {
+    padding: 1.3rem;
+
+    mat-error {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 10px;
+    }
+
+    .medium-width {
+        width: 45%;
+    }
+}

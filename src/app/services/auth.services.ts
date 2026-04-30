@@ -57,6 +57,7 @@ export class Auth {
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER);
   }
 
   isTokenExpired(token: string): boolean{

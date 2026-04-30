@@ -2,6 +2,7 @@ import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from "@angular/router";
 import { Auth } from '../../services/auth.services';
+import { User } from '../../services/user.services';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +14,14 @@ import { Auth } from '../../services/auth.services';
 export class Home {
   imgHero = 'assets/imagem-hero.svg'
 
-  private AuthService = inject(Auth);
+  private authService = inject(Auth);
+  private userService = inject(User);
   private router = inject(Router);
 
-  // ngOnInit(): void{
-  //   if(this.AuthService.isLoggedIn()){
-  //     this.router.navigate(['/tasks'])
-  //   }
-  // }
+  ngOnInit(): void {
+    if (!this.authService.isLoggedIn()) {
+      this.authService.logout();
+      console.log('Deslogado')
+    }
+  }
 }

@@ -56,7 +56,6 @@ export class TopMenu implements OnInit, OnDestroy {
   }
   
   logout(): void {
-    this.userService.setUser(null);
     this.authService.logout();
   }
 }

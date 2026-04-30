@@ -46,7 +46,7 @@ export class TopMenu implements OnInit, OnDestroy {
   }
 
   get isLogged(): boolean {
-    return this.authService.isLoggedIn();
+    return this.userService.getUser() !== null;
   }
 
   inicialDoNome(): string | null{
@@ -56,6 +56,7 @@ export class TopMenu implements OnInit, OnDestroy {
   }
   
   logout(): void {
+    this.userService.setUser(null);
     this.authService.logout();
   }
 }

@@ -6,7 +6,7 @@
 
 
         @if(field.type === 'textarea'){
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>{{field.label}}</mat-label>
             <textarea matInput [type]="field.type || 'text'" [formControlName]="field.name"></textarea>
         </mat-form-field>
@@ -15,7 +15,7 @@
 
         @if (field.type === 'date') {
 
-        <mat-form-field class="medium-width" style="margin-right: 1.5rem;">
+        <mat-form-field class="medium-width" style="margin-right: 1.5rem;" appearance="fill">
             <mat-label>Dia</mat-label>
             <input matInput [matDatepicker]="datepicker" [formControlName]="field.name">
             <mat-datepicker #datepicker />
@@ -25,7 +25,7 @@
         }
 
         @if (field.type === 'time') {
-        <mat-form-field class="medium-width">
+        <mat-form-field class="medium-width" appearance="fill">
             <mat-label>Hora</mat-label>
             <input matInput [matTimepicker]="timepicker" [formControlName]="field.name">
             <mat-timepicker #timepicker />
@@ -35,7 +35,7 @@
 
 
         @if (!field.type || field.type === 'number' || field.type === 'text') {
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>{{field.label}}</mat-label>
             <input matInput [type]="field.type || 'text'" [formControlName]="field.name" />
 

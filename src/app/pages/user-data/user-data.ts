@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../../services/user.services';
 import { email } from '@angular/forms/signals';
-import { DialogFields, ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
+import { ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Auth } from '../../services/auth.services';
 import { MatListModule } from '@angular/material/list';
@@ -15,7 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, ɵEmptyOutletComponent } from '@angular/router';
 import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
 import { finalize } from 'rxjs';
-import { EnderecoResponse, TelefoneResponse } from '../../shared/components/interfaces';
+import { DialogFields, EnderecoResponse, TelefoneResponse } from '../../shared/components/interfaces';
 
 @Component({
   selector: 'app-user-data',

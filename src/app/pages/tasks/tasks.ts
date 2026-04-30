@@ -5,14 +5,15 @@ import { MatCardModule } from '@angular/material/card';
 import { User } from '../../services/user.services';
 import { Auth } from '../../services/auth.services';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFields, ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
-import { TaskPayLoad, TasksServices } from '../../services/tasks.services';
+import { ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
+import { TasksServices } from '../../services/tasks.services';
 import { ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs';
 import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
 import { Router } from '@angular/router';
+import { DialogFields } from '../../shared/components/interfaces';
 
 @Component({
   selector: 'app-tasks',

@@ -82,8 +82,8 @@ export class Login {
           this.userService.getUserByEmail(response).subscribe({
             next: (user) => {
               this.auth.saveUser(user);
-              this.userService.setUser(user);
               this.router.navigate(['/tasks']);
+              this.userService.setUser(user);
             }
           });
         },

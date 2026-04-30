@@ -12,11 +12,9 @@ import { User } from '../../services/user.services';
   encapsulation: ViewEncapsulation.None
 })
 export class Home {
-  imgHero = 'assets/imagem-hero.svg'
+  imgHero = 'assets/image-home .png'
 
   private authService = inject(Auth);
-  private userService = inject(User);
-  private router = inject(Router);
 
   ngOnInit(): void {
     if (!this.authService.isLoggedIn()) {

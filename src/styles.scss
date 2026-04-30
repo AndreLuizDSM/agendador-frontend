@@ -68,6 +68,16 @@ h3 {
   width: 100%;
 }
 
+// Estilo global do snackbar de erro.
+// panelClass do MatSnackBar é aplicado no overlay (fora do componente),
+// por isso precisa estar no styles.scss global — não funcionaria em um SCSS de componente.
+.snackbar-error {
+  --mdc-snackbar-container-color: #b91c1c;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px !important;
+}
+
 .padding-p {
   padding: 8px !important;
 }

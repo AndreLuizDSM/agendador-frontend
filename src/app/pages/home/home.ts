@@ -21,7 +21,6 @@ export class Home {
   ngOnInit(): void {
     if (!this.authService.isLoggedIn()) {
       this.authService.logout();
-      console.log('Deslogado')
     }
   }
 }

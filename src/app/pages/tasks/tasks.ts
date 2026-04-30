@@ -36,7 +36,6 @@ export class Tasks {
     if (!this.authService.isLoggedIn()) {
       this.authService.logout();
       this.router.navigate([''])
-      console.log('Deslogado')
     }
   }
 

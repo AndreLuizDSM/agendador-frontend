@@ -1,91 +1,198 @@
-.task-component {
+.tasks-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--corp-bg);
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex: 1;
+/* ── Page Header ── */
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  background-color: var(--corp-surface);
+  border-bottom: 1px solid var(--corp-border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tasks-header-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.tasks-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--corp-navy);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tasks-count {
+  font-size: 0.8rem;
+  color: var(--corp-text-muted);
+  font-weight: 500;
+  background-color: var(--corp-bg);
+  border: 1px solid var(--corp-border);
+  border-radius: 100px;
+  padding: 0.15rem 0.65rem;
+}
+
+.btn-nova-tarefa {
+  background-color: var(--corp-blue) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  min-height: 38px !important;
+  transition: background-color 0.2s ease !important;
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+
+  &:hover {
+    background-color: var(--corp-blue-hover) !important;
+  }
+}
+
+/* ── Body ── */
+.tasks-body {
+  flex: 1;
+  padding: 1.75rem 2rem;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  align-self: stretch;
+}
+
+/* ── Empty State ── */
+.task-empty-card {
+  max-width: 420px;
+  margin: 3rem auto !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07) !important;
+  border-radius: 12px !important;
+}
+
+.task-empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 2rem !important;
+
+  .empty-icon {
+    font-size: 3rem;
+    height: 3rem;
+    width: 3rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    color: var(--corp-navy);
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: var(--corp-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+/* ── Accordion ── */
+.task-accordion {
+  display: block;
+}
+
+.task-expansion-panel {
+  margin-bottom: 0.6rem !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06) !important;
+
+  p {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    color: #475569;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+.task-title {
+  font-weight: 600 !important;
+  color: var(--corp-navy) !important;
+}
+
+.tasks-icon {
+  margin: 0 2% 0 2%;
+  font-size: 15px !important;
+  height: 15px !important;
+  width: 15px !important;
+  vertical-align: middle;
+}
+
+.task-action-button {
+  margin-right: 2px;
+  color: #94a3b8 !important;
+  transition: color 0.15s ease !important;
+
+  &:hover {
+    color: var(--corp-navy) !important;
+  }
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: flex-end !important;
+  color: var(--corp-text-muted) !important;
+  font-size: 0.85rem !important;
+  align-items: center !important;
+}
+
+.mat-expansion-panel-header {
+  height: auto !important;
+  min-height: 52px !important;
+  padding: 0 1rem !important;
+}
+
+.mat-expansion-panel-header .mat-content {
+  flex-wrap: wrap !important;
+}
+
+.task-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.panel-description {
+  justify-content: flex-start !important;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.75rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .tasks-header {
     padding: 1rem;
-    margin-right: 4%;
+  }
 
-    .task-card {
-        max-width: 400px;
-        width: 100%;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.178);
-    }
-
-    .task-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        flex-wrap: nowrap;
-
-        p {
-            font-size: 1.2rem;
-            font-weight: 500;
-            line-height: 1.2rem;
-        }
-
-    }
-
-    .task-accordion {
-        margin: 5%;
-    }
-
-    .task-title {
-        //white-space: nowrap;
-    }
-
-    .tasks-icon {
-        margin: 0 1% 0 2%;
-    }
-
-    .task-expansion-panel {
-        margin: 1rem 12%;
-        padding: 1rem;
-
-        p {
-            white-space: normal;
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-    }
-
-    .task-action-button {
-        margin-right: 2.5%;
-    }
-
-    .mat-expansion-panel-header-description {
-        justify-content: end !important;
-    }
-
-    .mat-expansion-panel-header {
-        height: auto !important;
-        min-height: 48px !important;
-    }
-
-    .mat-expansion-panel-header .mat-content {
-        flex-wrap: wrap !important;
-    }
-
-    .task-header-actions {
-        //flex-basis: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .panel-description{
-        justify-content: flex-start !important;
-        align-items: stretch;
-    }
-
-    .btn-nova-tarefa {
-        position: fixed;
-        bottom: 90px;
-        right: 2rem;
-        z-index: 50;
-    }
-
+  .tasks-body {
+    padding: 1rem;
+  }
 }

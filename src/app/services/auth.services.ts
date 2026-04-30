@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from './user.services';
 import { HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserResponse } from '../shared/components/interfaces';
@@ -58,6 +57,7 @@ export class Auth {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER);
+    
   }
 
   isTokenExpired(token: string): boolean{

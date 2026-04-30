@@ -112,6 +112,11 @@ export class User {
     )
   }
 
+  logout(): void {
+    this.authService.logout();
+    this._user.set(null);
+  }
+
   deleteUser(email: string): void {
 
     this.http.delete<void>(`${this.apiUrl}/usuario/${email}`, { headers: this.authService.getHeaders() }).subscribe(

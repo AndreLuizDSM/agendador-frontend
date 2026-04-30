@@ -46,15 +46,6 @@ export class UserData {
     }
   }
 
-  ngOnChanges(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.authService.logout()
-      this.router.navigate([''])
-      console.log('ngdoCHECK token: ', this.authService.getToken())
-    }
-    console.log('ngdoCHECK token: ', this.authService.getToken())
-  }
-
   user = this.userService.user;
 
   form = this.formBuilder.group({

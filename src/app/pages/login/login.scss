@@ -1,63 +1,112 @@
 .login-component {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background: linear-gradient(160deg, #f1f5f9 0%, #e8eef7 100%);
+  padding: 2rem 1rem;
+}
 
-    mat-card {
-        // Sempre usar a classe da div principal ao fazer alterações em componentes que vem da biblioteca
-        width: 400px;
-        padding: 20px;
-    }
+.auth-wrapper {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
 
-    mat-label {
-        color: rgba(26, 27, 31, 0.521);
-    }
+.auth-brand {
+  text-align: center;
+}
 
-    mat-card-header {
-        justify-content: center;
-    }
-    .mat-mdc-text-field-wrapper {
-        margin-bottom: 8px;
-    }
+.auth-brand-name {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--corp-navy);
+  letter-spacing: -0.01em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .mdc-button__label {
-        color: rgba(0, 0, 248, 0.562);
+.auth-brand-tagline {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--corp-text-muted);
+}
 
-    }
-    
+.login-component mat-card {
+  width: 100%;
+  padding: 1.75rem 1.5rem 1.25rem;
+  border-radius: 14px !important;
+  box-shadow: 0 6px 28px rgba(30, 58, 95, 0.1) !important;
+  border-top: 3px solid var(--corp-blue) !important;
+}
 
-    .cad-button-content {
-        display: inline-flex;
-        align-items: center;
+.login-component mat-label {
+  color: rgba(26, 27, 31, 0.55);
+}
 
-        mat-spinner {
-            margin-left: 6px;
-        }
-    }
+.login-component mat-card-header {
+  justify-content: center;
+}
 
-    .mdc-notched-outline__trailing {
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
+.login-component mat-card-title {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: var(--corp-navy) !important;
+}
 
-    .mdc-notched-outline__leading {
-        border-top-left-radius: 14px;
-        border-bottom-left-radius: 14px;
-    }
+.login-component .mat-mdc-text-field-wrapper {
+  margin-bottom: 8px;
+}
 
-    input::placeholder {
-        color: rgba(7, 7, 7, 0.479) !important;
-    }
+.login-component .mdc-button__label {
+  color: var(--corp-blue);
+  font-weight: 600;
+}
 
-    mat-error {
-        display: flex;
-        flex-direction: row-reverse;
-        font-size: 10px;
-    }
+.login-component .cad-button-content {
+  display: inline-flex;
+  align-items: center;
 
-    .mat-mdc-card-content {
-        padding: 12px 16px;
-    }
+  mat-spinner {
+    margin-left: 6px;
+  }
+}
+
+.login-component .mdc-notched-outline__trailing {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.login-component .mdc-notched-outline__leading {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.login-component input::placeholder {
+  color: rgba(7, 7, 7, 0.38) !important;
+}
+
+.login-component mat-error {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 10px;
+}
+
+.login-component .mat-mdc-card-content {
+  padding: 12px 16px;
+}
+
+.auth-footer-link {
+  text-align: center;
+  padding: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  color: var(--corp-text-muted);
+
+  .auth-link-hint {
+    color: var(--corp-blue);
+    font-weight: 600;
+  }
 }

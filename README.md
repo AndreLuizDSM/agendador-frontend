@@ -1,59 +1,122 @@
-# AgendadorDeTarefas
+# 🖥️ Agendador — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+> Interface web do sistema de agendamento de tarefas, desenvolvida em Angular com TypeScript.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📌 Sobre o Projeto
+
+Aplicação frontend responsável pela interação do usuário com o ecossistema de agendamento. Consome a API do `agendador-bff`, gerencia autenticação com JWT e protege rotas para usuários não autenticados.
+
+---
+
+## 🏗️ Arquitetura do Ecossistema
+
+```mermaid
+flowchart TD
+    Front["agendador-front ◄── (este serviço)<br/>(Angular + TypeScript)"]
+    BFF["agendador-bff<br/>(Gateway + OpenFeign + Swagger)"]
+    Usuario["agendador-usuario<br/>(PostgreSQL + JWT)"]
+    Tarefa["agendador-tarefa<br/>(MongoDB)"]
+    Notificacao["agendador-notificacao"]
+
+    Front --> BFF
+    BFF --> Usuario
+    BFF --> Tarefa
+    Tarefa --> Notificacao
+```
+
+---
+
+## 🚀 Tecnologias
+
+| Tecnologia | Finalidade |
+|---|---|
+| Angular | Framework principal |
+| TypeScript | Tipagem estática |
+| Angular Router + RouterState | Navegação e controle de estado de rota |
+| HTTP Interceptor | Interceptação e injeção do token JWT nas requisições |
+| Auth Service | Gerenciamento de autenticação (login, logout, token) |
+| Auth Guard | Proteção de rotas autenticadas |
+| Angular Services | Comunicação desacoplada com as APIs |
+
+---
+
+## ⚙️ Funcionalidades
+
+- [x] Login e registro de usuários
+- [x] Proteção de rotas via Auth Guard
+- [x] Injeção automática do token JWT em todas as requisições autenticadas (HTTP Interceptor)
+- [x] CRUD de tarefas/agendas
+- [x] Gerenciamento de estado de rota com RouterState
+- [x] Logout com limpeza de sessão
+
+---
+
+## 🔧 Como Executar
+
+### Pré-requisitos
+- Node.js 18+
+- Angular CLI instalado globalmente
+
+```bash
+npm install -g @angular/cli
+```
+
+### Instalação
+
+```bash
+npm install
+```
+
+### Configuração
+
+Atualize o arquivo `src/environments/environment.ts` com a URL do BFF:
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
+```
+
+### Rodando a aplicação
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acesse em: `http://localhost:4200`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🗂️ Estrutura de Pastas Relevante
 
-```bash
-ng generate component component-name
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── services/
+│   │   │   └── auth.service.ts        # Gerenciamento de autenticação
+│   │   ├── interceptors/
+│   │   │   └── auth.interceptor.ts    # Injeção do JWT nas requisições
+│   │   └── guards/
+│   │       └── auth.guard.ts          # Proteção de rotas
+│   ├── features/
+│   │   ├── auth/                      # Login e registro
+│   │   └── tarefas/                   # CRUD de tarefas
+│   └── shared/                        # Componentes e modelos compartilhados
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📂 Outros Serviços do Ecossistema
 
-## Building
+| Serviço | Descrição |
+|---|---|
+| [agendador-bff](../agendador-bff) | Gateway e documentação Swagger |
+| [agendador-usuario](../agendador-usuario) | CRUD de usuários com autenticação JWT |
+| [agendador-tarefa](../agendador-tarefa) | CRUD de tarefas com MongoDB |
+| [agendador-notificacao](../agendador-notificacao) | Notificações por e-mail via Gmail API |
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---

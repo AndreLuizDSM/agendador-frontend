@@ -5,13 +5,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Auth } from './auth.services';
 import { Router } from '@angular/router';
 import { CepResponse, EnderecoPayload, EnderecoResponse, TelefonePayload, TelefoneResponse, UserLoginPayload, UserRegisterPayload, UserResponse } from '../shared/components/interfaces';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class User {
 
-  private apiUrl = 'http://localhost:8083' //TODO colocar em um .ENV
+  private apiUrl = environment.apiURL //TODO colocar em um .ENV
   private jwtService = new JwtHelperService;
 
   private _user = signal<UserResponse | null>(null);

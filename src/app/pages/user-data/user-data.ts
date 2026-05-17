@@ -85,7 +85,7 @@ export class UserData {
       { name: 'numero', label: 'Numero' },
       { name: 'cidade', label: 'Cidade', validators: [Validators.required] },
       { name: 'estado', label: 'Estado', validators: [Validators.required, Validators.maxLength(2)] },
-      { name: 'complemento', label: 'Complemento' },
+      { name: 'complemento', label: 'Complemento' , validators: [Validators.maxLength(10)]},
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {

@@ -57,7 +57,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
         case 409:
           mensagem = 'Email já existente.';
           break;
-        
+
           // 500: erro interno no servidor Spring Boot.
         case 500:
           mensagem = 'Erro interno no servidor. Tente novamente mais tarde.';

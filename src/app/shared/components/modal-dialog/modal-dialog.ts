@@ -17,20 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-
-export interface DialogFields {
-  name: string,
-  label: string,
-  value?: string | number | Date
-  type?: string,
-  button?: { icon: string, callback: (value: string, dialogRef: MatDialogRef<ModalDialog>) => void }
-  validators?: any[]
-}
-
-interface dialogData {
-  title: string,
-  formConfig: DialogFields[] //Tipar DialogFields como array para ter as funcionalidades
-}
+import { dialogData, DialogFields } from '../interfaces';
 
 @Component({
   selector: 'app-modal-dialog',

@@ -8,13 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-
-interface dialogData {
-  title: string,
-  message: string,
-  confirmButton: string,
-  cancelButton: string
-}
+import { dialogDataConfirm } from '../interfaces';
 
 @Component({
   selector: 'app-confirm-modal-dialog',
@@ -35,7 +29,7 @@ export class ConfirmModalDialog {
 
 
   readonly dialogRef = inject(MatDialogRef<ModalDialog>);
-  readonly data = inject<dialogData>(MAT_DIALOG_DATA);
+  readonly data = inject<dialogDataConfirm>(MAT_DIALOG_DATA);
 
 
   onSave() {

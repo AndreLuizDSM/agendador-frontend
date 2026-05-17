@@ -1,34 +1,42 @@
 <div class="login-component">
+  <div class="auth-wrapper">
+
+    <div class="auth-brand">
+      <h2 class="auth-brand-name">Agenda Pro</h2>
+      <p class="auth-brand-tagline">Acesse sua conta para continuar</p>
+    </div>
+
     <mat-card>
-        <mat-card-header class="padding-m">
-            <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
+      <mat-card-header class="padding-m">
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
 
-        <mat-card-content>
-            <form [formGroup]="form">
+      <mat-card-content>
+        <form [formGroup]="form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" [placeholder]="'user123@example.com'">
+            @if (emailError) {
+            <mat-error>{{emailError}}</mat-error>
+            }
+          </mat-form-field>
+          <input-password-field [control]="passwordControl"></input-password-field>
+        </form>
+      </mat-card-content>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" [placeholder]="'user123@example.com'">
+      <mat-card-actions>
+        <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading()" (click)="submit()">
+          <span class="cad-button-content">
+            {{isLoading() ? "Entrando..." : "Entrar"}}
+            @if (isLoading()) {<mat-spinner diameter="20"></mat-spinner>}
+          </span>
+        </button>
+      </mat-card-actions>
 
-                    <!-- <mat-error *ngIf="form.get('email')?.errors?.['required']">Campo obrigatório*</mat-error> -->
-                    @if (emailError) {
-                    <mat-error>{{emailError}}</mat-error>
-                    }
-                </mat-form-field>
-                <!-- Colocar resposta de erro da senha de uma forma dinâmica -->
-                <input-password-field [control]="passwordControl"></input-password-field>
-            </form>
-        </mat-card-content>
-
-        <mat-card-actions>
-            <button matButton="tonal" class="full-width" [disabled]="form.invalid || isLoading()" (click)="submit()">
-                <span class="cad-button-content">
-                    {{isLoading() ? "Entrando..." : "Login"}}
-                    @if (isLoading()) {<mat-spinner diameter="20"></mat-spinner>}
-                </span>
-            </button>
-        </mat-card-actions>
-
+      <div class="auth-footer-link">
+        Não tem conta? <span class="auth-link-hint">Use o menu para cadastrar</span>
+      </div>
     </mat-card>
+
+  </div>
 </div>

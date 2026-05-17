@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { User, UserResponse } from '../../services/user.services';
+import { User } from '../../services/user.services';
 import { email } from '@angular/forms/signals';
-import { DialogFields, ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
+import { ModalDialog } from '../../shared/components/modal-dialog/modal-dialog';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Auth } from '../../services/auth.services';
 import { MatListModule } from '@angular/material/list';
@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, ɵEmptyOutletComponent } from '@angular/router';
 import { ConfirmModalDialog } from '../../shared/components/confirm-modal-dialog/confirm-modal-dialog';
 import { finalize } from 'rxjs';
+import { DialogFields, EnderecoResponse, TelefoneResponse } from '../../shared/components/interfaces';
 
 @Component({
   selector: 'app-user-data',
@@ -45,15 +46,6 @@ export class UserData {
     }
   }
 
-  ngOnChanges(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.authService.logout()
-      this.router.navigate([''])
-      console.log('ngdoCHECK token: ', this.authService.getToken())
-    }
-    console.log('ngdoCHECK token: ', this.authService.getToken())
-  }
-
   user = this.userService.user;
 
   form = this.formBuilder.group({
@@ -64,6 +56,7 @@ export class UserData {
   buscarEnderecoPeloCep(cep: string, dialogRef: MatDialogRef<ModalDialog, any>) {
     this.userService.getEnderecoByCep(cep).subscribe({
       next: (response) => {
+        console.log(response)
         dialogRef.componentInstance.form.patchValue({
           rua: response.logradouro,
           complemento: response.complemento,
@@ -92,7 +85,7 @@ export class UserData {
       { name: 'numero', label: 'Numero' },
       { name: 'cidade', label: 'Cidade', validators: [Validators.required] },
       { name: 'estado', label: 'Estado', validators: [Validators.required, Validators.maxLength(2)] },
-      { name: 'complemento', label: 'Complemento' },
+      { name: 'complemento', label: 'Complemento' , validators: [Validators.maxLength(10)]},
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -109,15 +102,7 @@ export class UserData {
     });
   }
 
-  editarEndereco(endereco: {
-    id: number,
-    rua: string,
-    numero: number,
-    complemento: string,
-    cidade: string,
-    estado: string,
-    cep: string
-  }) {
+  editarEndereco(endereco: EnderecoResponse) {
 
     const token = this.authService.getToken();
     if (!token) return;
@@ -175,7 +160,7 @@ export class UserData {
     });
   }
 
-  editarTelefone(telefone: { id: number, ddd: string, numero: string }) {
+  editarTelefone(telefone: TelefoneResponse) {
 
     const token = this.authService.getToken();
     if (!token) return;

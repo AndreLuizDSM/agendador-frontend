@@ -27,6 +27,7 @@ export class TopMenu implements OnInit, OnDestroy {
   private userService = inject(User);
   private authService = inject(Auth);
   private routerService = inject(RouterState);
+  private router = inject(Router)
   
   ngOnInit(): void {
     this.inscricaoAtual = this.routerService.atualRota$.subscribe(
@@ -46,7 +47,7 @@ export class TopMenu implements OnInit, OnDestroy {
   }
 
   get isLogged(): boolean {
-    return this.authService.isLoggedIn();
+    return this.userService.getUser() !== null;
   }
 
   inicialDoNome(): string | null{
@@ -56,6 +57,7 @@ export class TopMenu implements OnInit, OnDestroy {
   }
   
   logout(): void {
-    this.authService.logout();
+    this.userService.logout();
+    this.router.navigate([''], { replaceUrl: true});
   }
 }

@@ -3,31 +3,15 @@ import { Injectable, signal } from '@angular/core';
 import { Auth } from './auth.services';
 import { map, Observable, switchMap, tap } from 'rxjs';
 import { User } from './user.services';
-
-interface TaskResponse {
-  id: string,
-  nomeTarefa: string,
-  descricao: string,
-  dataCriacao: string,
-  dataEvento: string,
-  emailUsuario: string,
-  dataAlteracao: string,
-  statusNotificacaoEnum: 'PENDENTE' | 'NOTIFICADO' | 'CANCELADO'
-}
-
-export interface TaskPayLoad {
-  nomeTarefa: string,
-  descricao: string,
-  dataEvento: string,
-  dataAlteracao?: string
-}
+import { TaskPayLoad, TaskResponse } from '../shared/components/interfaces';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksServices {
 
-  private apiUrl = 'http://localhost:8083' //TODO colocar em um .ENV
+  private apiUrl = environment.apiURL //TODO colocar em um .ENV
   private _task = signal<TaskResponse[] | null>(null);
   readonly task = this._task.asReadonly();
 

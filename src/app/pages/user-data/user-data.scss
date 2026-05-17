@@ -1,65 +1,119 @@
 app-root:has(app-user-data) footer {
-    display: none;
+  display: none;
 }
 
 .user-data-component {
-    padding-bottom: 60px;
-    .user-data-card {
-        max-width: 550px;
-        margin: 2rem auto;
-        padding: 1rem;
+  background-color: var(--corp-bg);
+  flex: 1;
+  padding: 2rem 1rem;
 
-        .user-data-header {
-            display: flex;
-            flex-direction: column;
-            padding: 0 1rem;
+  .user-data-card {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 20px rgba(30, 58, 95, 0.08) !important;
+    border-top: 3px solid var(--corp-blue) !important;
+  }
 
-            .user-data-title {
-                padding-bottom: 1rem;
+  .user-data-header {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.75rem 1rem;
+  }
 
-            }
+  .user-data-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: var(--corp-navy) !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--corp-border);
+    margin-bottom: 0.5rem;
+  }
+
+  .mat-mdc-card-content {
+    padding: 0;
+  }
+
+  h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--corp-text-muted);
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  .item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--corp-border);
+    padding: 0.25rem 0;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .mdc-list-item__primary-text {
+      white-space: normal;
+      font-size: 0.9rem;
+      color: var(--corp-text);
+    }
+
+    .item-text {
+      width: 25rem;
+      flex: 1;
+    }
+
+    .mdc-list-item.mdc-list-item--with-one-line {
+      height: auto;
+      min-height: 40px;
+    }
+
+    .item-action {
+      display: flex;
+      gap: 0.25rem;
+      flex-shrink: 0;
+
+      button {
+        color: #94a3b8 !important;
+
+        &:hover {
+          color: var(--corp-navy) !important;
         }
+      }
+    }
+  }
+
+  .user-card-content {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .button-delete-account {
+    background-color: #ef4444 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0 1.5rem !important;
+
+    &:hover {
+      background-color: #dc2626 !important;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    padding: 1rem 0.75rem;
+
+    .user-card-content {
+      justify-content: flex-start;
     }
 
-    .mat-mdc-card-content {
-        padding: 0px;
+    .item-text {
+      width: auto !important;
     }
-
-    .item-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .mdc-list-item__primary-text {
-            white-space: wrap;
-        }
-        .item-text {
-            width: 25rem;
-            
-        }
-        .mdc-list-item.mdc-list-item--with-one-line {
-            height: auto;
-        }
-    }
-
-    .user-card-content{
-        display: flex;
-        justify-content: center;
-    }
-
-    .button-delete-account{
-        background-color: red;
-        max-width: 50%;
-        margin-top: 1rem;
-        
-    }
-
-    @media screen and (max-width: 500px) {
-        .user-card-content{
-            display: flex;
-            justify-content: flex-start;
-            width: 400px !important;
-        }
-    }
-
+  }
 }

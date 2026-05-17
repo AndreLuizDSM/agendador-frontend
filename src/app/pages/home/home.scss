@@ -1,53 +1,191 @@
+.home-page {
+  flex: 1;
+  background-color: var(--corp-bg);
+}
+
+/* ── Hero ── */
 .home-hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
-    flex-wrap: wrap;
-    background-color: white;
-    flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 6%;
+  background: linear-gradient(135deg, var(--corp-navy) 0%, #2563eb 100%);
+  min-height: 420px;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 
-    .hero-text {
-        max-width: 500px;
-    }
+.hero-content {
+  max-width: 520px;
+  color: white;
+}
 
-    h1 {
-        font-size: 2.5rem !important;
-    }
+.hero-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  padding: 0.28rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
 
-    p {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-    }
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 1.25rem;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .hero-image {
-        flex: 1 1 400px;
-        display: flex;
-        justify-content: center;
+.hero-accent {
+  color: #93c5fd;
+}
 
-        img {
-            width: 50%;
-        }
-    }
+.hero-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 2.25rem;
+  line-height: 1.65;
+}
 
-    button {
-        margin: 0px 6px;
-    }
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
 
-    @media (max-width: 425px) {
-        padding: 1.5rem 1rem;
+.btn-hero-primary {
+  background-color: white !important;
+  color: var(--corp-navy) !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 0.55rem 1.75rem !important;
+  font-size: 0.95rem !important;
+  transition: background-color 0.2s ease !important;
 
-        h1 {
-            font-size: 1.6rem !important;
-        }
+  &:hover {
+    background-color: #dbeafe !important;
+  }
+}
 
-        p {
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-        }
+.btn-hero-ghost {
+  color: rgba(255, 255, 255, 0.88) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 8px !important;
+  padding: 0.55rem 1.75rem !important;
+  font-size: 0.95rem !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease !important;
 
-        .hero-image img {
-            width: 70%;
-        }
-    }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.65) !important;
+    color: white !important;
+  }
+}
+
+.hero-image {
+  flex: 1 1 380px;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 55%;
+    filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.28));
+  }
+}
+
+/* ── Features ── */
+.home-features {
+  padding: 3.5rem 6%;
+}
+
+.features-label {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--corp-text-muted);
+  margin: 0 0 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--corp-surface);
+  border: 1px solid var(--corp-border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 24px rgba(30, 58, 95, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--corp-navy);
+    margin: 0 0 0.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: var(--corp-text-muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 3rem 4%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .hero-image img {
+    width: 72%;
+  }
+
+  .home-features {
+    padding: 2.5rem 1.25rem;
+  }
 }

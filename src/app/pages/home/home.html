@@ -1,14 +1,44 @@
-<div class="home-hero">
-    <div class="hero-text">
-        <h1>Organize suas tarefas de forma simples e eficiente</h1>
-        <p>Tenha mais produtividade no seu dia a dia com o nosso agendador de tarefas</p>
+<div class="home-page">
 
-        <div class="hero-actions">
-            <button matButton="elevated" routerLink="/register">Comece agora</button>
-            <button matButton="elevated" routerLink="/login">Já tenho conta</button>
-        </div>
+  <section class="home-hero">
+    <div class="hero-content">
+      <div class="hero-badge">Produtividade Corporativa</div>
+      <h1>Organize seu dia<br><span class="hero-accent">com precisão</span></h1>
+      <p>Gerencie compromissos de trabalho, academia, viagens e muito mais em um único lugar.</p>
+      <div class="hero-actions">
+        <button matButton="elevated" routerLink="/register" class="btn-hero-primary">Começar agora</button>
+        <button matButton routerLink="/login" class="btn-hero-ghost">Já tenho conta</button>
+      </div>
     </div>
     <div class="hero-image">
-        <img [src]="imgHero">
+      <img [src]="imgHero" alt="Ilustração de tarefas">
     </div>
+  </section>
+
+  <section class="home-features">
+    <p class="features-label">Tudo o que você precisa organizar</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💼</div>
+        <h3>Trabalho e Serviços</h3>
+        <p>Reuniões, prazos e entregas profissionais no controle.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏋️</div>
+        <h3>Saúde e Academia</h3>
+        <p>Treinos, consultas e hábitos de bem-estar agendados.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✈️</div>
+        <h3>Viagens e Lazer</h3>
+        <p>Itinerários, reservas e programações pessoais.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Agenda Pessoal</h3>
+        <p>Tudo centralizado em uma visão clara e organizada.</p>
+      </div>
+    </div>
+  </section>
+
 </div>

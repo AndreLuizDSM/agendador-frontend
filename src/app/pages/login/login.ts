@@ -87,7 +87,9 @@ export class Login {
             }
           });
         },
-        error: (error) => {}
+        error: (error) => {
+          console.log('Erro ao fazer login', error)
+        }
       });
   }
 }

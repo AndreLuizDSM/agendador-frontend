@@ -33,15 +33,15 @@ export class Auth {
     try {
     const decoded = this.jwtService.decodeToken(token);
     if(!decoded.exp) return null
-    
+
     return new Date(decoded.exp * 1000)
     } catch(error){
       console.log(error)
       return null
     }
-  
+
   }
-  
+
   getHeaders(): HttpHeaders {
     const token = this.getToken();
     return new HttpHeaders({ Authorization: `${token}` });
@@ -57,7 +57,7 @@ export class Auth {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER);
-    
+
   }
 
   isTokenExpired(token: string): boolean{
@@ -67,11 +67,11 @@ export class Auth {
     const dataAtual = Math.floor(Date.now() / 1000)
     return dataAtual > tokenExp.exp // Se dataAtual for maior, retorna true
   }
-  
+
   isLoggedIn(): boolean {
     const token = this.getToken();
     if(!token) return false
-   
+
       return  !this.isTokenExpired(token);  // !! -> Retorna valor boolean do método
   }
 }

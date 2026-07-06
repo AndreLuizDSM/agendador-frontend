@@ -44,7 +44,7 @@ export class Tasks {
 
   separarDataEvento(dataEvento: string) {
     //Método para preencher formConfig
-    
+
     const [data, tempo] = dataEvento.split(' ')
     const [dia, mes, ano] = data.split('-').map(Number);
     const [horas, minutos, segundos] = tempo.split(':').map(Number);
@@ -100,10 +100,7 @@ export class Tasks {
         }
         this.taskService.createTask(payload)
           .pipe(finalize(() => { this.taskService.getTask() }))
-          .subscribe({
-            next: () => console.log('Task criada!', payload),
-            error: () => console.log('Erro ao criar task', payload)
-          });
+
       };
     });
   }
@@ -153,13 +150,7 @@ export class Tasks {
 
         this.taskService.updateTask(payload, tarefa.id)
           .pipe(finalize(() => { this.taskService.getTask() }))
-          .subscribe({
-            next: (response) => {
-              console.log('Task Editada!', response)
 
-            },
-            error: () => console.log('Erro ao editar', payload)
-          });
       };
     });
   }
@@ -180,10 +171,7 @@ export class Tasks {
 
         this.taskService.deleteTask(tarefa)
           .pipe(finalize(() => { this.taskService.getTask() }))
-          .subscribe({
-            next: () => { console.log('Task Excluída!') },
-            error: () => console.log('Erro ao excluir',)
-          });
+
       };
     });
   }

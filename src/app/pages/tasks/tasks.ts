@@ -101,8 +101,8 @@ export class Tasks {
         this.taskService.createTask(payload)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => console.log('Task criada!', payload),
-            error: () => console.log('Erro ao criar task', payload)
+            next: () => { },
+            error: () => { }
           });
       };
     });
@@ -154,11 +154,9 @@ export class Tasks {
         this.taskService.updateTask(payload, tarefa.id)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: (response) => {
-              console.log('Task Editada!', response)
-
+            next: () => {
             },
-            error: () => console.log('Erro ao editar', payload)
+            error: () => { }
           });
       };
     });
@@ -181,8 +179,8 @@ export class Tasks {
         this.taskService.deleteTask(tarefa)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => { console.log('Task Excluída!') },
-            error: () => console.log('Erro ao excluir',)
+            next: () => { },
+            error: () => { }
           });
       };
     });

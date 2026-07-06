@@ -50,7 +50,6 @@ export class Register {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      console.log('Entrou ngOnInit')
       this.router.navigate(['/tasks'])
     }
 
@@ -87,7 +86,7 @@ export class Register {
     .pipe(finalize(() => {this.isLoading.set(false);} ))
     .subscribe({
         next: (response) => { this.router.navigate(['/login']) },
-        error: (error) => { console.log('Erro ao registrar usuário', error) },
+        error: () => { },
       });
   }
 

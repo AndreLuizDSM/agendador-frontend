@@ -56,7 +56,6 @@ export class UserData {
   buscarEnderecoPeloCep(cep: string, dialogRef: MatDialogRef<ModalDialog, any>) {
     this.userService.getEnderecoByCep(cep).subscribe({
       next: (response) => {
-        console.log(response)
         dialogRef.componentInstance.form.patchValue({
           rua: response.logradouro,
           complemento: response.complemento,
@@ -64,7 +63,7 @@ export class UserData {
           estado: response.uf
         })
       },
-      error: () => console.log('Erro ao buscarEnderecoPeloCep')
+      error: () => { }
 
     })
   }
@@ -95,8 +94,8 @@ export class UserData {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.saveEndereco(result, token).subscribe({
-          next: () => console.log('Cadastro com sucesso', result),
-          error: (erro) => console.log('Erro', result, erro)
+          next: () => { },
+          error: () => { }
         })
       };
     });
@@ -130,8 +129,8 @@ export class UserData {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.updateEndereco(endereco.id, result, token).subscribe({
-          next: () => console.log('Endereco editado', result),
-          error: () => console.log('Erro', result)
+          next: () => { },
+          error: () => { }
         });
       };
     });
@@ -153,8 +152,8 @@ export class UserData {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.saveTelefone(result, token).subscribe({
-          next: () => console.log('Telefone cadastrado', result),
-          error: () => console.log('Erro', result)
+          next: () => { },
+          error: () => { }
         });
       };
     });
@@ -178,8 +177,8 @@ export class UserData {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.updateTelefone(telefone.id, result, token).subscribe({
-          next: () => console.log('Telefone editado', result),
-          error: () => console.log('Erro', result)
+          next: () => { },
+          error: () => { }
         });
       };
     });
@@ -202,7 +201,6 @@ export class UserData {
       if (result) {
 
         this.userService.deleteUser(email)
-        console.log('Usuário deletado', result)
         this.router.navigate([''])
         
         

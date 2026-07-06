@@ -36,7 +36,6 @@ export class Auth {
 
     return new Date(decoded.exp * 1000)
     } catch(error){
-      console.log(error)
       return null
     }
 

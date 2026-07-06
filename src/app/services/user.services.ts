@@ -46,7 +46,7 @@ export class User {
       const decoded = this.jwtService.decodeToken(token);
       return decoded?.sub || null;
     } catch (error) {
-      console.log(error)
+
       return null
     }
   }

@@ -11,5 +11,8 @@ export const routes: Routes = [
     {path: 'register', component: Register},
     {path: 'login', component: Login},
     {path: 'tasks', component: Tasks, canActivate: [authGuard]},
-    {path: 'user-data', component: UserData, canActivate: [authGuard]}
+    {path: 'user-data', component: UserData, canActivate: [authGuard]},
+
+    // Redirecionar para Home
+    {path: '**', redirectTo: '', pathMatch: 'full' }
 ];

@@ -63,9 +63,7 @@ export class UserData {
           cidade: response.localidade,
           estado: response.uf
         })
-      },
-      error: () => console.log('Erro ao buscarEnderecoPeloCep')
-
+      }
     })
   }
 
@@ -94,11 +92,7 @@ export class UserData {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.saveEndereco(result, token).subscribe({
-          next: () => console.log('Cadastro com sucesso', result),
-          error: (erro) => console.log('Erro', result, erro)
-        })
-      };
+        this.userService.saveEndereco(result, token)};
     });
   }
 
@@ -129,10 +123,7 @@ export class UserData {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.updateEndereco(endereco.id, result, token).subscribe({
-          next: () => console.log('Endereco editado', result),
-          error: () => console.log('Erro', result)
-        });
+        this.userService.updateEndereco(endereco.id, result, token)
       };
     });
   }
@@ -152,10 +143,7 @@ export class UserData {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.saveTelefone(result, token).subscribe({
-          next: () => console.log('Telefone cadastrado', result),
-          error: () => console.log('Erro', result)
-        });
+        this.userService.saveTelefone(result, token)
       };
     });
   }
@@ -177,10 +165,7 @@ export class UserData {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.updateTelefone(telefone.id, result, token).subscribe({
-          next: () => console.log('Telefone editado', result),
-          error: () => console.log('Erro', result)
-        });
+        this.userService.updateTelefone(telefone.id, result, token)
       };
     });
   }
@@ -202,10 +187,8 @@ export class UserData {
       if (result) {
 
         this.userService.deleteUser(email)
-        console.log('Usuário deletado', result)
+
         this.router.navigate([''])
-        
-        
       }
     })
   }

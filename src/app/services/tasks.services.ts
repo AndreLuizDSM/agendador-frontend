@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class TasksServices {
 
-  private apiUrl = environment.apiURL //TODO colocar em um .ENV
+  private apiUrl = environment.apiUrl //TODO colocar em um .ENV
   private _task = signal<TaskResponse[] | null>(null);
   readonly task = this._task.asReadonly();
 

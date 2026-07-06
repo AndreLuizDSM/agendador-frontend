@@ -55,7 +55,7 @@ export class Register {
     }
 
   }
-  
+
   get fullNameError(): string | null {
     const fullNameControl = this.form.get('nome')
     if (fullNameControl?.hasError('required')) return 'Campo obrigatório*';
@@ -82,12 +82,12 @@ export class Register {
     const formData = this.form.value as UserRegisterPayload;
 
     this.isLoading.set(true)
-    
+
     this.userService.register(formData)
     .pipe(finalize(() => {this.isLoading.set(false);} ))
     .subscribe({
         next: (response) => { this.router.navigate(['/login']) },
-        error: (error) => { console.log('Erro ao registrar usuário', error) }, 
+        error: (error) => { console.log('Erro ao registrar usuário', error) },
       });
   }
 

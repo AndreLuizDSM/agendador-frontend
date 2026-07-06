@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 })
 export class User {
 
-  private apiUrl = environment.apiURL //TODO colocar em um .ENV
+  private apiUrl = environment.apiUrl //TODO colocar em um .ENV
   private jwtService = new JwtHelperService;
 
   private _user = signal<UserResponse | null>(null);

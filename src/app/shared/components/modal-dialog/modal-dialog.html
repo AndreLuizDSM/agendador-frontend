@@ -17,7 +17,7 @@
 
         <mat-form-field class="medium-width" style="margin-right: 1.5rem;" appearance="fill">
             <mat-label>Dia</mat-label>
-            <input matInput [matDatepicker]="datepicker" [formControlName]="field.name">
+            <input matInput placeholder="01/01/2000" [matDatepicker]="datepicker" [formControlName]="field.name">
             <mat-datepicker #datepicker />
             <mat-datepicker-toggle [for]="datepicker" matSuffix />
         </mat-form-field>
@@ -27,8 +27,8 @@
         @if (field.type === 'time') {
         <mat-form-field class="medium-width" appearance="fill">
             <mat-label>Hora</mat-label>
-            <input matInput [matTimepicker]="timepicker" [formControlName]="field.name">
-            <mat-timepicker #timepicker interval="1min" />
+            <input matInput placeholder="00:00" [matTimepicker]="timepicker" [formControlName]="field.name">
+            <mat-timepicker #timepicker interval="15min" />
             <mat-timepicker-toggle [for]="timepicker" matSuffix />
         </mat-form-field>
         }

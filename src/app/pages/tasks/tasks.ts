@@ -37,7 +37,6 @@ export class Tasks {
       this.authService.logout();
       this.router.navigate([''])
     }
-    this.taskService.getTask()
   }
 
   tasks = this.taskService.task;
@@ -45,27 +44,29 @@ export class Tasks {
 
   private readonly pad = (n: number) => n.toString().padStart(2, '0');
 
-  // Junta a data + hora escolhidas no dialog (GMT-3) e devolve o instante em UTC
-  // no formato ISO-8601 com "Z" ao final (ex.: 2026-07-07T18:30:00.000Z),
-  // esperado pelo backend que agora recebe dataEvento como Instant.
+  // Junta a data + hora escolhidas no dialog (horário local, GMT-3) e devolve a
+  // string em UTC no formato dd-MM-yyyy HH:mm:ss. Assim o LocalDateTime do
+  // back-end guarda o instante já em UTC (ex.: 11:00 local -> 14:00 UTC).
   private toDataEventoUtc(data: Date, tempo: Date): string {
     const instante = new Date(
       data.getFullYear(), data.getMonth(), data.getDate(),
       tempo.getHours(), tempo.getMinutes(), tempo.getSeconds()
     );
 
-    return instante.toISOString();
+    const dia = this.pad(instante.getUTCDate());
+    const mes = this.pad(instante.getUTCMonth() + 1);
+    const ano = instante.getUTCFullYear();
+    const hora = this.pad(instante.getUTCHours());
+    const minuto = this.pad(instante.getUTCMinutes());
+    const segundo = this.pad(instante.getUTCSeconds());
+
+    return `${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`;
   }
 
-  // Converte o instante vindo do backend para um Date local (GMT-3),
-  // de forma que getHours()/getDate() já devolvam o horário de parede correto.
+  // Converte a string UTC vinda do back-end (dd-MM-yyyy HH:mm:ss) para um Date
+  // local, de forma que getHours()/getDate() já devolvam o horário de parede
+  // correto (ex.: 14:00 UTC -> 11:00 local).
   private parseDataEventoUtc(dataEvento: string): Date {
-    // Backend agora devolve Instant em ISO-8601 (ex.: 2026-07-07T18:30:00Z).
-    if (dataEvento.includes('T')) {
-      return new Date(dataEvento);
-    }
-
-    // Formato legado dd-MM-yyyy HH:mm:ss (UTC).
     const [data, tempo] = dataEvento.split(' ');
     const [dia, mes, ano] = data.split('-').map(Number);
     const [horas, minutos, segundos] = tempo.split(':').map(Number);
@@ -108,13 +109,11 @@ export class Tasks {
           ...resto,
           dataEvento
         }
-
-
         this.taskService.createTask(payload)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => {console.log(payload) },
-            error: () => {console.log(payload) }
+            next: () => { },
+            error: () => { }
           });
       };
     });
@@ -156,9 +155,9 @@ export class Tasks {
         this.taskService.updateTask(payload, tarefa.id)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => { console.log(payload)
+            next: () => {
             },
-            error: () => { console.log(payload) }
+            error: () => { }
           });
       };
     });

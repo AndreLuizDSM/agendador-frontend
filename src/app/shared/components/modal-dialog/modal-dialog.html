@@ -28,7 +28,7 @@
         <mat-form-field class="medium-width" appearance="fill">
             <mat-label>Hora</mat-label>
             <input matInput [matTimepicker]="timepicker" [formControlName]="field.name">
-            <mat-timepicker #timepicker />
+            <mat-timepicker #timepicker interval="1min" />
             <mat-timepicker-toggle [for]="timepicker" matSuffix />
         </mat-form-field>
         }

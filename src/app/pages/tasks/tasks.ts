@@ -37,30 +37,52 @@ export class Tasks {
       this.authService.logout();
       this.router.navigate([''])
     }
+    this.taskService.getTask()
   }
 
   tasks = this.taskService.task;
   hasTasks = () => (this.tasks() ?? []).length > 0
 
-  separarDataEvento(dataEvento: string) {
-    //Método para preencher formConfig
-    
-    const [data, tempo] = dataEvento.split(' ')
+  private readonly pad = (n: number) => n.toString().padStart(2, '0');
+
+  // Junta a data + hora escolhidas no dialog (GMT-3) e devolve a string em UTC
+  // no formato dd-MM-yyyy HH:mm:ss esperado pelo backend.
+  private toDataEventoUtc(data: Date, tempo: Date): string {
+    const instante = new Date(
+      data.getFullYear(), data.getMonth(), data.getDate(),
+      tempo.getHours(), tempo.getMinutes(), tempo.getSeconds()
+    );
+
+    const dia = this.pad(instante.getUTCDate());
+    const mes = this.pad(instante.getUTCMonth() + 1);
+    const ano = instante.getUTCFullYear();
+    const hora = this.pad(instante.getUTCHours());
+    const minuto = this.pad(instante.getUTCMinutes());
+    const segundo = this.pad(instante.getUTCSeconds());
+
+    return `${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`;
+  }
+
+  // Converte a string UTC vinda do backend para um Date local (GMT-3),
+  // de forma que getHours()/getDate() já devolvam o horário de parede correto.
+  private parseDataEventoUtc(dataEvento: string): Date {
+    const [data, tempo] = dataEvento.split(' ');
     const [dia, mes, ano] = data.split('-').map(Number);
     const [horas, minutos, segundos] = tempo.split(':').map(Number);
 
-    const tempoFormatado = new Date(ano, mes - 1, dia, horas, minutos);
+    return new Date(Date.UTC(ano, mes - 1, dia, horas, minutos, segundos));
+  }
 
-    return tempoFormatado;
+  separarDataEvento(dataEvento: string) {
+    //Método para preencher formConfig
+    return this.parseDataEventoUtc(dataEvento);
   }
 
   dataString(dataEvento: string) {
-    const [data, tempo] = dataEvento.split(' ')
-    const [dia, mes, ano] = data.split('-');
-    const [horas, minutos, segundos] = tempo.split(':');
+    const d = this.parseDataEventoUtc(dataEvento);
 
-    const dataString = `${dia}/${mes}/${ano}`
-    const tempoString = `${horas}:${minutos}`
+    const dataString = `${this.pad(d.getDate())}/${this.pad(d.getMonth() + 1)}/${d.getFullYear()}`
+    const tempoString = `${this.pad(d.getHours())}:${this.pad(d.getMinutes())}`
 
     return { dataString, tempoString };
   }
@@ -81,28 +103,18 @@ export class Tasks {
       if (result) {
         const { data, tempo, ...resto } = result;
 
-        const formatter = (n: number) => n.toString().padStart(2, "0");
-
-        const ano = data.getFullYear();
-        const mes = formatter(data.getMonth() + 1);
-        const dia = formatter(data.getDate());
-
-        const hora = formatter(tempo.getHours());
-        const minuto = formatter(tempo.getMinutes());
-        const segundo = formatter(tempo.getSeconds());
-
-        // dd-MM-yyyy HH:mm:ss
-
-        const dataEvento = (`${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`);
+        const dataEvento = this.toDataEventoUtc(data, tempo);
         const payload = {
           ...resto,
           dataEvento
         }
+
+
         this.taskService.createTask(payload)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => { },
-            error: () => { }
+            next: () => {console.log(payload) },
+            error: () => {console.log(payload) }
           });
       };
     });
@@ -133,19 +145,9 @@ export class Tasks {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const formatter = (n: number) => n.toString().padStart(2, "0");
         const { data, tempo, ...resto } = result;
-        const ano = data.getFullYear();
-        const mes = formatter(data.getMonth() + 1);
-        const dia = formatter(data.getDate());
 
-        const hora = formatter(tempo.getHours());
-        const minuto = formatter(tempo.getMinutes());
-        const segundo = formatter(tempo.getSeconds());
-
-        // // dd-MM-yyyy HH:mm:ss
-
-        const dataEvento = (`${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`);
+        const dataEvento = this.toDataEventoUtc(data, tempo);
         const payload = {
           ...resto,
           dataEvento,
@@ -154,9 +156,9 @@ export class Tasks {
         this.taskService.updateTask(payload, tarefa.id)
           .pipe(finalize(() => { this.taskService.getTask() }))
           .subscribe({
-            next: () => {
+            next: () => { console.log(payload)
             },
-            error: () => { }
+            error: () => { console.log(payload) }
           });
       };
     });

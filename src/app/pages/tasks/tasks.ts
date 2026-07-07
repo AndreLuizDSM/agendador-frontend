@@ -45,27 +45,27 @@ export class Tasks {
 
   private readonly pad = (n: number) => n.toString().padStart(2, '0');
 
-  // Junta a data + hora escolhidas no dialog (GMT-3) e devolve a string em UTC
-  // no formato dd-MM-yyyy HH:mm:ss esperado pelo backend.
+  // Junta a data + hora escolhidas no dialog (GMT-3) e devolve o instante em UTC
+  // no formato ISO-8601 com "Z" ao final (ex.: 2026-07-07T18:30:00.000Z),
+  // esperado pelo backend que agora recebe dataEvento como Instant.
   private toDataEventoUtc(data: Date, tempo: Date): string {
     const instante = new Date(
       data.getFullYear(), data.getMonth(), data.getDate(),
       tempo.getHours(), tempo.getMinutes(), tempo.getSeconds()
     );
 
-    const dia = this.pad(instante.getUTCDate());
-    const mes = this.pad(instante.getUTCMonth() + 1);
-    const ano = instante.getUTCFullYear();
-    const hora = this.pad(instante.getUTCHours());
-    const minuto = this.pad(instante.getUTCMinutes());
-    const segundo = this.pad(instante.getUTCSeconds());
-
-    return `${dia}-${mes}-${ano} ${hora}:${minuto}:${segundo}`;
+    return instante.toISOString();
   }
 
-  // Converte a string UTC vinda do backend para um Date local (GMT-3),
+  // Converte o instante vindo do backend para um Date local (GMT-3),
   // de forma que getHours()/getDate() já devolvam o horário de parede correto.
   private parseDataEventoUtc(dataEvento: string): Date {
+    // Backend agora devolve Instant em ISO-8601 (ex.: 2026-07-07T18:30:00Z).
+    if (dataEvento.includes('T')) {
+      return new Date(dataEvento);
+    }
+
+    // Formato legado dd-MM-yyyy HH:mm:ss (UTC).
     const [data, tempo] = dataEvento.split(' ');
     const [dia, mes, ano] = data.split('-').map(Number);
     const [horas, minutos, segundos] = tempo.split(':').map(Number);

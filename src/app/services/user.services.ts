@@ -127,4 +127,18 @@ export class User {
       }
     )
   }
+
+  deleteTelefone(id: number): void {
+
+    this.http.delete<void>(`${this.apiUrl}/usuario/telefone?id=${id}`, { headers: this.authService.getHeaders() })
+
+  }
+
+  deleteEndereco(id: number): void {
+
+    this.http.delete<void>(`${this.apiUrl}/usuario/endereco?id=${id}`, { headers: this.authService.getHeaders() })
+
+  }
+
+
 }

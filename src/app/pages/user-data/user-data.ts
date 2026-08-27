@@ -82,9 +82,9 @@ export class UserData {
       },
       { name: 'rua', label: 'Rua', validators: [Validators.required] },
       { name: 'numero', label: 'Numero' },
-      { name: 'cidade', label: 'Cidade', validators: [Validators.required] },
-      { name: 'estado', label: 'Estado', validators: [Validators.required, Validators.maxLength(2)] },
-      { name: 'complemento', label: 'Complemento' , validators: [Validators.maxLength(10)]},
+      { name: 'cidade', label: 'Cidade', validators: [Validators.required, Validators.maxLength(50)] },
+      { name: 'estado', label: 'UF', validators: [Validators.required, Validators.maxLength(2)] },
+      { name: 'complemento', label: 'Complemento' , validators: [Validators.maxLength(25)]},
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -142,8 +142,8 @@ export class UserData {
     if (!token) return;
 
     const formConfig: DialogFields[] = [
-      { name: 'ddd', label: 'DDD', validators: [Validators.required] },
-      { name: 'numero', label: 'Numero', validators: [Validators.required] },
+      { name: 'ddd', label: 'DDD', validators: [Validators.required , Validators.maxLength(3), Validators.minLength(2)] },
+      { name: 'numero', label: 'Numero', validators: [Validators.required, Validators.maxLength(9), Validators.minLength(6)] },
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -166,8 +166,8 @@ export class UserData {
 
 
     const formConfig: DialogFields[] = [
-      { name: 'ddd', label: 'DDD', value: telefone.ddd, validators: [Validators.required] },
-      { name: 'numero', label: 'Numero', value: telefone.numero, validators: [Validators.required] },
+      { name: 'ddd', label: 'DDD', value: telefone.ddd, validators: [Validators.required, Validators.maxLength(3), Validators.minLength(2)] },
+      { name: 'numero', label: 'Numero', value: telefone.numero, validators: [Validators.required, Validators.maxLength(10), Validators.minLength(6)] },
     ]
 
     const dialogRef = this.dialog.open(ModalDialog, {
@@ -202,8 +202,59 @@ export class UserData {
 
         this.userService.deleteUser(email)
         this.router.navigate([''])
-        
-        
+
+
+      }
+    })
+  }
+
+  deletarTelefone(id: number | undefined): void {
+    const token = this.authService.getToken();
+    if (!token) return;
+
+    if (!id) return
+
+    const dialogRef = this.dialog.open(ConfirmModalDialog, {
+      data: {
+        title: 'Apagar Telefone',
+        message: 'Deseja apagar esse telefone ?',
+        confirmButton: 'Deletar',
+        cancelButton: 'Cancelar'
+      }
+    })
+
+    dialogRef.afterClosed()
+
+    .subscribe(result => {
+      if (result) {
+
+        this.userService.deleteTelefone(id, token)
+
+
+      }
+    })
+  }
+
+  deletarEndereco(id: number | undefined): void {
+    const token = this.authService.getToken();
+    if (!token) return;
+
+    if (!id) return
+
+    const dialogRef = this.dialog.open(ConfirmModalDialog, {
+      data: {
+        title: 'Apagar endereço',
+        message: 'Deseja apagar esse endereço ?',
+        confirmButton: 'Deletar',
+        cancelButton: 'Cancelar'
+      }
+    })
+
+    dialogRef.afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.userService.deleteEndereco(id, token)
+
       }
     })
   }

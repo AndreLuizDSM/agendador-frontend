@@ -24,10 +24,10 @@
 
                     <div class="item-wrapper">
                         <div class="item-text" [matTooltip]="`
-                        ${endereco.cidade}, 
-                        ${endereco.estado}, 
-                        ${endereco.numero}, 
-                        ${endereco.rua}, 
+                        ${endereco.cidade},
+                        ${endereco.estado},
+                        ${endereco.numero},
+                        ${endereco.rua},
                         ${endereco.cep},
                         ${endereco.complemento ? `${endereco.complemento}` : ''}
                         `">
@@ -43,7 +43,7 @@
                                 <mat-icon>edit</mat-icon>
                             </button>
 
-                            <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                            <button matIconButton (click)="deletarEndereco(endereco.id)" aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </div>
@@ -72,7 +72,7 @@
                                 <mat-icon>edit</mat-icon>
                             </button>
 
-                            <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                            <button matIconButton (click)="deletarTelefone(telefone.id)" aria-label="Example icon button with a vertical three dot icon">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </div>
@@ -86,12 +86,12 @@
 
             </mat-card-content>
 
-            
+
                 <mat-card-content class="user-card-content">
                     <button matButton="filled" (click)="deletarUsuario(user()?.email)"
                         class="button-delete-account">Excluir conta</button>
                 </mat-card-content>
-            
+
 
         </mat-card-header>
 

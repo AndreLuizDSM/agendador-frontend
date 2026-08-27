@@ -127,4 +127,36 @@ export class User {
       }
     )
   }
+
+  deleteTelefone(id: number, token: string): void {
+
+    this.http.delete<void>(`${this.apiUrl}/usuario/telefone?id=${id}`, { headers: this.authService.getHeaders() }).pipe(
+      switchMap(() => this.getUserByEmail(token)),
+      tap(user => {
+        this.setUser(user)
+        this.authService.saveUser(user)
+      })
+    )
+    .subscribe({
+      next: (result) => {},
+      error: (erro) => {},
+     })
+  }
+
+  deleteEndereco(id: number, token: string): void {
+
+     this.http.delete<void>(`${this.apiUrl}/usuario/endereco?id=${id}`, { headers: this.authService.getHeaders() }).pipe(
+      switchMap(() => this.getUserByEmail(token)),
+      tap(user => {
+        this.setUser(user)
+        this.authService.saveUser(user)
+      })
+    )
+     .subscribe({
+      next: (result) => {},
+      error: (erro) => {},
+     })
+  }
+
+
 }
